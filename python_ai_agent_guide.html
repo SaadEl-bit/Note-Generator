@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python for AI Agents — Field Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e2a;
+    --border: #252a38;
+    --accent: #00e5a0;
+    --accent2: #7c6dfa;
+    --accent3: #f7b731;
+    --danger: #ff5e5b;
+    --text: #e8eaf0;
+    --muted: #6b7394;
+    --code-bg: #0a0c10;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* SIDEBAR NAV */
+  .layout { display: flex; min-height: 100vh; }
+
+  nav {
+    width: 270px;
+    min-height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    position: fixed;
+    top: 0; left: 0;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-brand {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand .logo {
+    font-size: 11px;
+    font-family: 'Space Mono', monospace;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .nav-brand h2 {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .nav-section-label {
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 20px 24px 8px;
+  }
+
+  nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 24px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 600;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+  }
+
+  nav a:hover, nav a.active {
+    color: var(--accent);
+    background: rgba(0,229,160,0.05);
+    border-left-color: var(--accent);
+  }
+
+  nav a .nav-icon { font-size: 14px; min-width: 18px; }
+
+  /* MAIN CONTENT */
+  .main {
+    margin-left: 270px;
+    flex: 1;
+    max-width: 900px;
+    padding: 60px 56px;
+  }
+
+  /* HERO */
+  .hero {
+    margin-bottom: 72px;
+    position: relative;
+    padding: 56px 0 0;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(0,229,160,0.1);
+    border: 1px solid rgba(0,229,160,0.25);
+    padding: 4px 12px;
+    border-radius: 2px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+
+  .hero h1 span { color: var(--accent); }
+
+  .hero p {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+
+  .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 5px 14px;
+    border-radius: 2px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .badge-c { background: rgba(247,183,49,0.12); color: var(--accent3); border: 1px solid rgba(247,183,49,0.25); }
+  .badge-java { background: rgba(124,109,250,0.12); color: var(--accent2); border: 1px solid rgba(124,109,250,0.25); }
+  .badge-py { background: rgba(0,229,160,0.12); color: var(--accent); border: 1px solid rgba(0,229,160,0.25); }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 72px;
+    scroll-margin-top: 32px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    background: rgba(0,229,160,0.1);
+    border: 1px solid rgba(0,229,160,0.2);
+    padding: 4px 10px;
+    border-radius: 2px;
+    min-width: 44px;
+    text-align: center;
+  }
+
+  .section h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  /* PROSE */
+  p { color: #b0b7cc; margin-bottom: 16px; font-size: 15px; }
+  strong { color: var(--text); }
+
+  /* COMPARISON TABLE */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 13.5px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .compare-table th {
+    background: var(--surface2);
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    border: 1px solid var(--border);
+  }
+
+  .compare-table td {
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  .compare-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+  .compare-table td:first-child { color: var(--accent3); font-weight: 700; }
+  .compare-table td:nth-child(2) { color: #8fa0c0; }
+  .compare-table td:nth-child(3) { color: var(--accent); }
+
+  /* CODE BLOCKS */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .code-lang {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .code-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .code-block pre {
+    padding: 20px;
+    overflow-x: auto;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #c8d3f0;
+  }
+
+  /* Syntax highlighting */
+  .kw { color: #7c6dfa; font-weight: 700; }
+  .fn { color: #00e5a0; }
+  .st { color: #f7b731; }
+  .cm { color: #4a5578; font-style: italic; }
+  .nu { color: #ff9f7f; }
+  .cl { color: #82aaff; }
+  .dec { color: #ff5e5b; }
+
+  /* CALLOUT BOXES */
+  .callout {
+    padding: 18px 20px;
+    border-radius: 4px;
+    margin: 20px 0;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .callout-icon { font-size: 18px; min-width: 22px; margin-top: 1px; }
+
+  .callout.tip {
+    background: rgba(0,229,160,0.07);
+    border: 1px solid rgba(0,229,160,0.2);
+    color: #90d4b8;
+  }
+
+  .callout.warn {
+    background: rgba(247,183,49,0.07);
+    border: 1px solid rgba(247,183,49,0.2);
+    color: #c9a84c;
+  }
+
+  .callout.info {
+    background: rgba(124,109,250,0.07);
+    border: 1px solid rgba(124,109,250,0.2);
+    color: #a59af0;
+  }
+
+  .callout.danger {
+    background: rgba(255,94,91,0.07);
+    border: 1px solid rgba(255,94,91,0.2);
+    color: #d88886;
+  }
+
+  /* CARDS GRID */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: var(--accent2); }
+
+  .card-icon { font-size: 24px; margin-bottom: 10px; }
+  .card h4 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .card p { font-size: 13px; color: var(--muted); margin: 0; }
+
+  /* STEPS */
+  .steps { margin: 24px 0; }
+
+  .step {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 24px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    min-width: 36px;
+    height: 36px;
+    background: var(--accent);
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .step-content h4 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .step-content p { font-size: 13.5px; color: var(--muted); margin: 0; }
+
+  /* INLINE CODE */
+  code {
+    font-family: 'Space Mono', monospace;
+    font-size: 12.5px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+
+  /* PROJECT ROADMAP */
+  .roadmap {
+    position: relative;
+    margin: 24px 0;
+  }
+
+  .roadmap::before {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+  }
+
+  .roadmap-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 28px;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .roadmap-dot {
+    min-width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .roadmap-dot.done { background: var(--accent); }
+  .roadmap-dot.active { border-color: var(--accent3); box-shadow: 0 0 12px rgba(247,183,49,0.4); }
+  .roadmap-dot.future { border-color: var(--border); }
+
+  .roadmap-body { padding-top: 6px; }
+  .roadmap-body h4 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .roadmap-body p { font-size: 13px; color: var(--muted); margin: 0; }
+
+  /* API TABLE */
+  .api-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 13.5px;
+  }
+
+  .api-table th {
+    background: var(--surface2);
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .api-table td {
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+    color: #a0aac0;
+    line-height: 1.6;
+  }
+
+  .api-table tr:nth-child(even) td { background: rgba(255,255,255,0.018); }
+
+  .api-name { color: var(--accent2) !important; font-weight: 700; font-family: 'Space Mono', monospace; font-size: 13px; }
+  .api-free { color: var(--accent) !important; }
+  .api-note { color: var(--accent3) !important; font-size: 12px; }
+
+  /* DIVIDER */
+  hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+  /* FOOTER */
+  footer {
+    margin-top: 80px;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  footer span { color: var(--accent); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  @media (max-width: 900px) {
+    nav { display: none; }
+    .main { margin-left: 0; padding: 32px 24px; }
+    .hero h1 { font-size: 36px; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="layout">
+<nav>
+  <div class="nav-brand">
+    <div class="logo">Field Guide</div>
+    <h2>Python for AI Agents</h2>
+  </div>
+
+  <div class="nav-section-label">Getting Started</div>
+  <a href="#intro" class="active"><span class="nav-icon">🗺️</span> Overview</a>
+  <a href="#vs-c-java"><span class="nav-icon">⚖️</span> Python vs C / Java</a>
+  <a href="#setup"><span class="nav-icon">⚙️</span> Setup & Environment</a>
+
+  <div class="nav-section-label">Python Core</div>
+  <a href="#syntax"><span class="nav-icon">✏️</span> Syntax & Variables</a>
+  <a href="#data-structures"><span class="nav-icon">📦</span> Data Structures</a>
+  <a href="#functions"><span class="nav-icon">🔧</span> Functions</a>
+  <a href="#oop"><span class="nav-icon">🏗️</span> OOP in Python</a>
+  <a href="#files-json"><span class="nav-icon">📄</span> Files & JSON</a>
+  <a href="#error-handling"><span class="nav-icon">🛡️</span> Error Handling</a>
+
+  <div class="nav-section-label">AI Agent Project</div>
+  <a href="#api-calls"><span class="nav-icon">🌐</span> Calling AI APIs</a>
+  <a href="#api-comparison"><span class="nav-icon">🔑</span> API Comparison</a>
+  <a href="#agent-architecture"><span class="nav-icon">🤖</span> Agent Architecture</a>
+  <a href="#frameworks"><span class="nav-icon">🧰</span> Frameworks</a>
+  <a href="#roadmap"><span class="nav-icon">🚀</span> Your Roadmap</a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero" id="intro">
+    <div class="hero-tag">Complete Guide</div>
+    <h1>Python for<br><span>AI Agents</span></h1>
+    <p>A practical field guide built for developers who already know C and Java. Everything you need to build your first AI agent that converts messy notes into structured documents.</p>
+    <div class="hero-badges">
+      <span class="badge badge-c">C background ✓</span>
+      <span class="badge badge-java">Java background ✓</span>
+      <span class="badge badge-py">→ Python + AI APIs</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: Python vs C/Java -->
+  <section class="section" id="vs-c-java">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Python vs C / Java — What Changes</h2>
+    </div>
+
+    <p>Since you know C and Java, the transition is mostly about unlearning strict rules. Python is dynamically typed, interpreted, and reads almost like pseudocode. Here's a direct translation of key concepts:</p>
+
+    <table class="compare-table">
+      <tr>
+        <th>Concept</th>
+        <th>C / Java</th>
+        <th>Python</th>
+      </tr>
+      <tr>
+        <td>Variable</td>
+        <td>int x = 5;</td>
+        <td>x = 5</td>
+      </tr>
+      <tr>
+        <td>String</td>
+        <td>String s = "hi";</td>
+        <td>s = "hi"</td>
+      </tr>
+      <tr>
+        <td>Array / List</td>
+        <td>int[] arr = {1,2,3};</td>
+        <td>arr = [1, 2, 3]</td>
+      </tr>
+      <tr>
+        <td>Print</td>
+        <td>System.out.println("hi");</td>
+        <td>print("hi")</td>
+      </tr>
+      <tr>
+        <td>For loop</td>
+        <td>for(int i=0; i&lt;5; i++)</td>
+        <td>for i in range(5):</td>
+      </tr>
+      <tr>
+        <td>Function</td>
+        <td>public int add(int a, int b)</td>
+        <td>def add(a, b):</td>
+      </tr>
+      <tr>
+        <td>Class</td>
+        <td>public class Agent {}</td>
+        <td>class Agent:</td>
+      </tr>
+      <tr>
+        <td>Null</td>
+        <td>null / NULL</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td>Boolean</td>
+        <td>true / false</td>
+        <td>True / False</td>
+      </tr>
+      <tr>
+        <td>Semicolons</td>
+        <td>Required ;</td>
+        <td>Not needed</td>
+      </tr>
+      <tr>
+        <td>Blocks</td>
+        <td>{ curly braces }</td>
+        <td>Indentation (4 spaces)</td>
+      </tr>
+      <tr>
+        <td>Import</td>
+        <td>import java.util.*;</td>
+        <td>import json</td>
+      </tr>
+    </table>
+
+    <div class="callout warn">
+      <span class="callout-icon">⚠️</span>
+      <div><strong>Indentation is mandatory and meaningful in Python.</strong> Unlike C/Java where braces define blocks, Python uses 4 spaces. A wrong indent = a crash. Always configure your editor to use spaces, not tabs.</div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: SETUP -->
+  <section class="section" id="setup">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Setup & Environment</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Install Python 3.11+</h4>
+          <p>Download from <strong>python.org</strong>. On Windows, check "Add to PATH" during install. Verify with: <code>python --version</code></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Use Virtual Environments (like sandboxes)</h4>
+          <p>Each project has its own isolated package space — like separate Maven projects in Java.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Pick an Editor: VS Code</h4>
+          <p>Install the Python extension. It gives you autocomplete, linting, and a debugger. PyCharm is also excellent for larger projects.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Install packages with pip</h4>
+          <p>pip is Python's package manager (like Maven/npm). You'll use it to install API libraries.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">TERMINAL — Project Setup</span>
+        <span class="code-label">Run once per project</span>
+      </div>
+      <pre><span class="cm"># 1. Create your project folder</span>
+mkdir my-agent && cd my-agent
+
+<span class="cm"># 2. Create a virtual environment</span>
+python -m venv venv
+
+<span class="cm"># 3. Activate it (Windows)</span>
+venv\Scripts\activate
+
+<span class="cm"># 3. Activate it (Mac/Linux)</span>
+source venv/bin/activate
+
+<span class="cm"># 4. Install packages you need</span>
+pip install requests python-dotenv google-generativeai
+
+<span class="cm"># 5. Save your dependencies (like pom.xml in Java)</span>
+pip freeze > requirements.txt</pre>
+    </div>
+
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <div>Store your API keys in a <code>.env</code> file and load them with <code>python-dotenv</code>. <strong>Never hardcode API keys in your source code.</strong> Add <code>.env</code> to your <code>.gitignore</code>.</div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PYTHON — .env file + loading keys</span>
+        <span class="code-label">secrets management</span>
+      </div>
+      <pre><span class="cm"># File: .env (never commit this!)</span>
+GEMINI_API_KEY=your_gemini_key_here
+GROQ_API_KEY=your_groq_key_here
+
+<span class="cm"># File: config.py</span>
+<span class="kw">import</span> os
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+load_dotenv()  <span class="cm"># loads .env into environment</span>
+
+GEMINI_KEY = os.getenv(<span class="st">"GEMINI_API_KEY"</span>)
+GROQ_KEY   = os.getenv(<span class="st">"GROQ_API_KEY"</span>)</pre>
+    </div>
+  </section>
+
+  <!-- SECTION 3: SYNTAX -->
+  <section class="section" id="syntax">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Syntax & Variables</h2>
+    </div>
+
+    <p>Python is dynamically typed — no need to declare types (though you can add <em>type hints</em> for clarity, which is good practice).</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PYTHON — Variables & Types</span>
+        <span class="code-label">basics</span>
+      </div>
+      <pre><span class="cm"># Basic variables — no type declaration needed</span>
+name   = <span class="st">"NoteAgent"</span>      <span class="cm"># str</span>
+version = <span class="nu">1.0</span>              <span class="cm"># float</span>
+active  = <span class="kw">True</span>             <span class="cm"># bool</span>
+count   = <span class="nu">42</span>               <span class="cm"># int</span>
+nothing = <span class="kw">None</span>             <span class="cm"># null equivalent</span>
+
+<span class="cm"># Type hints (optional but recommended for your project)</span>
+agent_name: str   = <span class="st">"NoteAgent"</span>
+token_limit: int  = <span class="nu">4000</span>
+
+<span class="cm"># String operations (very important for text processing)</span>
+raw_note = <span class="st">"  Meeting notes from 2024-01-15  "</span>
+cleaned  = raw_note.strip()        <span class="cm"># remove whitespace</span>
+lower    = cleaned.lower()         <span class="cm"># lowercase</span>
+words    = cleaned.split(<span class="st">" "</span>)     <span class="cm"># split into list</span>
+
+<span class="cm"># f-strings — the modern way to format strings</span>
+model = <span class="st">"gemini-1.5-flash"</span>
+tokens_used = <span class="nu">312</span>
+<span class="fn">print</span>(<span class="st">f"Used {tokens_used} tokens with {model}"</span>)
+
+<span class="cm"># Multi-line strings (perfect for prompts!)</span>
+system_prompt = <span class="st">"""
+You are a note organizer. 
+Convert messy notes into structured markdown.
+Always extract: title, date, action items, summary.
+"""</span></pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PYTHON — Control Flow</span>
+        <span class="code-label">if / for / while</span>
+      </div>
+      <pre><span class="cm"># IF statement (no parentheses required, but allowed)</span>
+tokens = <span class="nu">3500</span>
+<span class="kw">if</span> tokens &lt; <span class="nu">1000</span>:
+    <span class="fn">print</span>(<span class="st">"Use Gemini — lots of tokens left"</span>)
+<span class="kw">elif</span> tokens &lt; <span class="nu">3000</span>:
+    <span class="fn">print</span>(<span class="st">"Use Groq"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"Switch API to save tokens"</span>)
+
+<span class="cm"># FOR loop over a list</span>
+notes = [<span class="st">"note1.txt"</span>, <span class="st">"note2.txt"</span>, <span class="st">"note3.txt"</span>]
+<span class="kw">for</span> note <span class="kw">in</span> notes:
+    <span class="fn">print</span>(<span class="st">f"Processing: {note}"</span>)
+
+<span class="cm"># Loop with index (like for(int i=0...)</span>
+<span class="kw">for</span> i, note <span class="kw">in</span> <span class="fn">enumerate</span>(notes):
+    <span class="fn">print</span>(<span class="st">f"[{i}] {note}"</span>)
+
+<span class="cm"># List comprehension — Pythonic one-liner loops</span>
+txt_files = [f <span class="kw">for</span> f <span class="kw">in</span> notes <span class="kw">if</span> f.endswith(<span class="st">".txt"</span>)]</pre>
+    </div>
+  </section>
+
+  <!-- SECTION 4: DATA STRUCTURES -->
+  <section class="section" id="data-structures">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Data Structures</h2>
+    </div>
+
+    <p>You'll use these constantly when processing notes and building your agent's memory/state.</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PYTHON — Lists, Dicts, Sets, Tuples</span>
+        <span class="code-label">the 4 core containers</span>
+      </div>
+      <pre><span class="cm"># LIST — ordered, mutable (like ArrayList in Java)</span>
+action_items = [<span class="st">"Fix bug"</span>, <span class="st">"Write tests"</span>, <span class="st">"Deploy"</span>]
+action_items.append(<span class="st">"Send email"</span>)   <span class="cm"># add item</span>
+action_items.remove(<span class="st">"Fix bug"</span>)      <span class="cm"># remove item</span>
+first = action_items[<span class="nu">0</span>]              <span class="cm"># index access</span>
+last  = action_items[-<span class="nu">1</span>]             <span class="cm"># negative indexing!</span>
+
+<span class="cm"># DICT — key-value store (like HashMap in Java)</span>
+<span class="cm"># This is CRITICAL for your agent — you'll use it everywhere</span>
+structured_note = {
+    <span class="st">"title"</span>: <span class="st">"Team Meeting"</span>,
+    <span class="st">"date"</span>:  <span class="st">"2024-01-15"</span>,
+    <span class="st">"participants"</span>: [<span class="st">"Alice"</span>, <span class="st">"Bob"</span>],
+    <span class="st">"action_items"</span>: [<span class="st">"Fix bug"</span>, <span class="st">"Deploy"</span>],
+    <span class="st">"summary"</span>: <span class="st">"Discussed Q1 goals."</span>
+}
+
+<span class="cm"># Access values</span>
+title = structured_note[<span class="st">"title"</span>]
+title = structured_note.get(<span class="st">"title"</span>, <span class="st">"Unknown"</span>)  <span class="cm"># safe get</span>
+
+<span class="cm"># Add or update keys</span>
+structured_note[<span class="st">"priority"</span>] = <span class="st">"high"</span>
+
+<span class="cm"># Loop over a dict</span>
+<span class="kw">for</span> key, value <span class="kw">in</span> structured_note.items():
+    <span class="fn">print</span>(<span class="st">f"{key}: {value}"</span>)</pre>
+    </div>
+
+    <div class="callout info">
+      <span class="callout-icon">🧠</span>
+      <div><strong>Dicts are how AI APIs return data.</strong> When you call Gemini or Groq, the response is a Python dict (parsed from JSON). Mastering dicts = mastering API responses.</div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: FUNCTIONS -->
+  <section class="section" id="functions">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Functions</h2>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PYTHON — Functions & Default Arguments</span>
+        <span class="code-label">def keyword</span>
+      </div>
+      <pre><span class="cm"># Basic function</span>
+<span class="kw">def</span> <span class="fn">clean_note</span>(raw_text: str) -> str:
+    <span class="st">"""Remove extra whitespace and empty lines."""</span>
+    lines = raw_text.strip().split(<span class="st">"\n"</span>)
+    cleaned = [line.strip() <span class="kw">for</span> line <span class="kw">in</span> lines <span class="kw">if</span> line.strip()]
+    <span class="kw">return</span> <span class="st">"\n"</span>.join(cleaned)
+
+<span class="cm"># Default arguments (not available in C, like in Java)</span>
+<span class="kw">def</span> <span class="fn">build_prompt</span>(note: str, style: str = <span class="st">"markdown"</span>, max_words: int = <span class="nu">500</span>) -> str:
+    <span class="kw">return</span> <span class="st">f"""
+Convert this note to {style} format in max {max_words} words:
+
+{note}
+    """</span>
+
+<span class="cm"># Call with keyword arguments (very readable)</span>
+prompt = <span class="fn">build_prompt</span>(my_note, style=<span class="st">"json"</span>, max_words=<span class="nu">300</span>)
+
+<span class="cm"># Return multiple values (returns a tuple)</span>
+<span class="kw">def</span> <span class="fn">count_tokens</span>(text: str):
+    words = <span class="fn">len</span>(text.split())
+    chars = <span class="fn">len</span>(text)
+    <span class="kw">return</span> words, chars          <span class="cm"># returns tuple</span>
+
+w, c = <span class="fn">count_tokens</span>(<span class="st">"Hello world"</span>)  <span class="cm"># unpacking</span></pre>
+    </div>
+  </section>
+
+  <!-- SECTION 6: OOP -->
+  <section class="section" id="oop">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>OOP in Python</h2>
+    </div>
+
+    <p>You know Java OOP. Python OOP is similar but lighter. Here's a practical example — an Agent class you'll actually use:</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PYTHON — Class: NoteAgent</span>
+        <span class="code-label">real project example</span>
+      </div>
+      <pre><span class="kw">class</span> <span class="cl">NoteAgent</span>:
+    <span class="st">"""An agent that converts raw notes to structured documents."""</span>
+
+    <span class="cm"># Class variable (shared by all instances)</span>
+    version = <span class="st">"1.0.0"</span>
+
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, api_key: str, model: str = <span class="st">"gemini-1.5-flash"</span>):
+        <span class="cm"># self = this in Java</span>
+        self.api_key = api_key
+        self.model   = model
+        self.token_count = <span class="nu">0</span>
+        self.history = []         <span class="cm"># list of processed notes</span>
+
+    <span class="kw">def</span> <span class="fn">process_note</span>(self, raw_note: str) -> dict:
+        <span class="st">"""Send note to AI and return structured result."""</span>
+        cleaned = self.<span class="fn">_clean_input</span>(raw_note)
+        prompt  = self.<span class="fn">_build_prompt</span>(cleaned)
+        result  = self.<span class="fn">_call_api</span>(prompt)
+        self.history.append(result)
+        <span class="kw">return</span> result
+
+    <span class="kw">def</span> <span class="fn">_clean_input</span>(self, text: str) -> str:
+        <span class="st">"""Private method (convention: prefix with _)"""</span>
+        <span class="kw">return</span> text.strip()
+
+    <span class="kw">def</span> <span class="fn">_build_prompt</span>(self, note: str) -> str:
+        <span class="kw">return</span> <span class="st">f"Structure this note as JSON:\n\n{note}"</span>
+
+    <span class="kw">def</span> <span class="fn">_call_api</span>(self, prompt: str) -> dict:
+        <span class="cm"># Will be implemented in the API section</span>
+        <span class="kw">pass</span>
+
+    <span class="kw">def</span> <span class="fn">get_stats</span>(self) -> dict:
+        <span class="kw">return</span> {<span class="st">"notes_processed"</span>: <span class="fn">len</span>(self.history),
+                <span class="st">"tokens_used"</span>: self.token_count}
+
+<span class="cm"># Usage</span>
+agent = <span class="cl">NoteAgent</span>(api_key=<span class="st">"abc123"</span>)
+result = agent.<span class="fn">process_note</span>(<span class="st">"meeting jan 15 discuss roadmap q1 ..."</span>)
+<span class="fn">print</span>(agent.<span class="fn">get_stats</span>())</pre>
+    </div>
+
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <div>In Python, there are no true <strong>private</strong> attributes like in Java. By convention, prefix with <code>_method</code> to signal "internal use only". The class still works the same.</div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: FILES & JSON -->
+  <section class="section" id="files-json">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2>Files & JSON</h2>
+    </div>
+
+    <p>Your agent will read messy notes from files and write structured JSON/Markdown output. This is essential:</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PYTHON — Read/Write Files & JSON</span>
+        <span class="code-label">I/O operations</span>
+      </div>
+      <pre><span class="kw">import</span> json
+<span class="kw">import</span> os
+
+<span class="cm"># READ a text file (your messy notes)</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"notes/meeting.txt"</span>, <span class="st">"r"</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
+    raw_note = f.read()         <span class="cm"># entire file as string</span>
+
+<span class="cm"># WRITE a text file (your structured output)</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"output/meeting.md"</span>, <span class="st">"w"</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
+    f.write(structured_content)
+
+<span class="cm"># SAVE as JSON</span>
+structured = {<span class="st">"title"</span>: <span class="st">"Meeting"</span>, <span class="st">"items"</span>: [<span class="st">"task1"</span>]}
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"output/meeting.json"</span>, <span class="st">"w"</span>) <span class="kw">as</span> f:
+    json.dump(structured, f, indent=<span class="nu">2</span>)  <span class="cm"># indent for pretty print</span>
+
+<span class="cm"># LOAD JSON</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="st">"output/meeting.json"</span>, <span class="st">"r"</span>) <span class="kw">as</span> f:
+    data = json.load(f)         <span class="cm"># returns a Python dict</span>
+
+<span class="cm"># PARSE JSON string (what APIs return)</span>
+json_str = <span class="st">'{"title": "Meeting", "date": "2024-01-15"}'</span>
+data = json.loads(json_str)     <span class="cm"># string -> dict</span>
+
+<span class="cm"># List all .txt files in a folder</span>
+note_files = [f <span class="kw">for</span> f <span class="kw">in</span> os.listdir(<span class="st">"notes"</span>) <span class="kw">if</span> f.endswith(<span class="st">".txt"</span>)]</pre>
+    </div>
+  </section>
+
+  <!-- SECTION 8: ERROR HANDLING -->
+  <section class="section" id="error-handling">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2>Error Handling</h2>
+    </div>
+
+    <p>API calls will fail sometimes — network issues, rate limits, bad responses. Good error handling is what separates a prototype from a reliable agent.</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PYTHON — try/except (like try/catch in Java)</span>
+        <span class="code-label">exception handling</span>
+      </div>
+      <pre"><span class="kw">import</span> time
+
+<span class="kw">def</span> <span class="fn">call_api_safely</span>(prompt: str, retries: int = <span class="nu">3</span>) -> str:
+    <span class="st">"""Call API with retry logic — essential for production."""</span>
+
+    <span class="kw">for</span> attempt <span class="kw">in</span> <span class="fn">range</span>(retries):
+        <span class="kw">try</span>:
+            response = api.<span class="fn">generate</span>(prompt)   <span class="cm"># might fail</span>
+            <span class="kw">return</span> response.text
+
+        <span class="kw">except</span> ConnectionError <span class="kw">as</span> e:
+            <span class="fn">print</span>(<span class="st">f"Network error (attempt {attempt+1}): {e}"</span>)
+            time.<span class="fn">sleep</span>(<span class="nu">2</span>)                    <span class="cm"># wait before retry</span>
+
+        <span class="kw">except</span> ValueError <span class="kw">as</span> e:
+            <span class="fn">print</span>(<span class="st">f"Bad response format: {e}"</span>)
+            <span class="kw">return</span> <span class="kw">None</span>                      <span class="cm"># don't retry this one</span>
+
+        <span class="kw">except</span> Exception <span class="kw">as</span> e:
+            <span class="fn">print</span>(<span class="st">f"Unexpected error: {e}"</span>)
+            <span class="kw">raise</span>                             <span class="cm"># re-raise unknown errors</span>
+
+    <span class="fn">print</span>(<span class="st">"All retries failed."</span>)
+    <span class="kw">return</span> <span class="kw">None</span>
+
+<span class="cm"># Custom exception for your project</span>
+<span class="kw">class</span> <span class="cl">TokenLimitError</span>(Exception):
+    <span class="st">"""Raised when a note exceeds the token limit."""</span>
+    <span class="kw">pass</span>
+
+<span class="kw">def</span> <span class="fn">check_note_length</span>(note: str, limit: int = <span class="nu">4000</span>):
+    <span class="kw">if</span> <span class="fn">len</span>(note.split()) > limit:
+        <span class="kw">raise</span> <span class="cl">TokenLimitError</span>(<span class="st">f"Note too long: {len(note.split())} words"</span>)</pre>
+    </div>
+  </section>
+
+  <!-- SECTION 9: API CALLS -->
+  <section class="section" id="api-calls">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2>Calling AI APIs</h2>
+    </div>
+
+    <p>Here's how to call Gemini and Groq from Python. Both follow the same pattern: send a prompt → receive structured text.</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PYTHON — Google Gemini API</span>
+        <span class="code-label">pip install google-generativeai</span>
+      </div>
+      <pre"><span class="kw">import</span> google.generativeai <span class="kw">as</span> genai
+<span class="kw">import</span> os, json
+
+genai.<span class="fn">configure</span>(api_key=os.<span class="fn">getenv</span>(<span class="st">"GEMINI_API_KEY"</span>))
+
+<span class="kw">def</span> <span class="fn">structure_note_gemini</span>(raw_note: str) -> dict:
+    model = genai.<span class="cl">GenerativeModel</span>(<span class="st">"gemini-1.5-flash"</span>)
+
+    prompt = <span class="st">f"""
+Convert the following messy note into a structured JSON document.
+Return ONLY valid JSON with these fields:
+- title (string)
+- date (string or null)
+- participants (list of strings)
+- summary (string, 2-3 sentences)
+- action_items (list of strings)
+- tags (list of keywords)
+
+Note:
+{raw_note}
+    """</span>
+
+    response = model.<span class="fn">generate_content</span>(prompt)
+    text = response.text.strip()
+
+    <span class="cm"># Clean up if model wraps in markdown code block</span>
+    <span class="kw">if</span> text.startswith(<span class="st">"```"</span>):
+        text = text.split(<span class="st">"```"</span>)[<span class="nu">1</span>]
+        <span class="kw">if</span> text.startswith(<span class="st">"json"</span>):
+            text = text[<span class="nu">4</span>:]
+
+    <span class="kw">return</span> json.<span class="fn">loads</span>(text)     <span class="cm"># parse JSON string -> dict</span>
+
+<span class="cm"># Test it</span>
+raw = <span class="st">"jan 15 meet w alice bob q1 goals fix the auth bug deploy next week"</span>
+result = <span class="fn">structure_note_gemini</span>(raw)
+<span class="fn">print</span>(json.<span class="fn">dumps</span>(result, indent=<span class="nu">2</span>))</pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PYTHON — Groq API (ultra-fast)</span>
+        <span class="code-label">pip install groq</span>
+      </div>
+      <pre"><span class="kw">from</span> groq <span class="kw">import</span> Groq
+<span class="kw">import</span> os, json
+
+client = <span class="cl">Groq</span>(api_key=os.<span class="fn">getenv</span>(<span class="st">"GROQ_API_KEY"</span>))
+
+<span class="kw">def</span> <span class="fn">structure_note_groq</span>(raw_note: str) -> dict:
+    completion = client.chat.completions.<span class="fn">create</span>(
+        model=<span class="st">"llama3-8b-8192"</span>,    <span class="cm"># fast + free tier</span>
+        messages=[
+            {
+                <span class="st">"role"</span>: <span class="st">"system"</span>,
+                <span class="st">"content"</span>: <span class="st">"You are a note structuring assistant. Always respond with valid JSON only."</span>
+            },
+            {
+                <span class="st">"role"</span>: <span class="st">"user"</span>,
+                <span class="st">"content"</span>: <span class="st">f"Structure this note as JSON with: title, date, summary, action_items, tags.\n\n{raw_note}"</span>
+            }
+        ],
+        temperature=<span class="nu">0.2</span>,           <span class="cm"># low = more deterministic output</span>
+        max_tokens=<span class="nu">1024</span>,
+    )
+    text = completion.choices[<span class="nu">0</span>].message.content
+    <span class="kw">return</span> json.<span class="fn">loads</span>(text)</pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PYTHON — Smart Router (split work between APIs)</span>
+        <span class="code-label">token economy strategy</span>
+      </div>
+      <pre"><span class="cm"># Route notes to different APIs based on length/complexity</span>
+<span class="kw">def</span> <span class="fn">smart_route</span>(raw_note: str) -> dict:
+    word_count = <span class="fn">len</span>(raw_note.split())
+
+    <span class="kw">if</span> word_count &lt; <span class="nu">100</span>:
+        <span class="cm"># Short note → use fast Groq (free, instant)</span>
+        <span class="fn">print</span>(<span class="st">f"→ Routing to Groq ({word_count} words)"</span>)
+        <span class="kw">return</span> <span class="fn">structure_note_groq</span>(raw_note)
+    <span class="kw">else</span>:
+        <span class="cm"># Long note → use Gemini (larger context window)</span>
+        <span class="fn">print</span>(<span class="st">f"→ Routing to Gemini ({word_count} words)"</span>)
+        <span class="kw">return</span> <span class="fn">structure_note_gemini</span>(raw_note)
+
+<span class="cm"># Process a folder of notes</span>
+<span class="kw">import</span> os
+
+<span class="kw">for</span> filename <span class="kw">in</span> os.<span class="fn">listdir</span>(<span class="st">"notes/"</span>):
+    <span class="kw">if</span> filename.endswith(<span class="st">".txt"</span>):
+        <span class="kw">with</span> <span class="fn">open</span>(<span class="st">f"notes/{filename}"</span>) <span class="kw">as</span> f:
+            note = f.read()
+        result = <span class="fn">smart_route</span>(note)
+        <span class="kw">with</span> <span class="fn">open</span>(<span class="st">f"output/{filename}.json"</span>, <span class="st">"w"</span>) <span class="kw">as</span> out:
+            json.dump(result, out, indent=<span class="nu">2</span>)</pre>
+    </div>
+  </section>
+
+  <!-- SECTION 10: API COMPARISON -->
+  <section class="section" id="api-comparison">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <h2>API Comparison for Your Project</h2>
+    </div>
+
+    <table class="api-table">
+      <tr>
+        <th>API</th>
+        <th>Best For</th>
+        <th>Free Tier</th>
+        <th>Context Window</th>
+        <th>Note</th>
+      </tr>
+      <tr>
+        <td class="api-name">Gemini 1.5 Flash</td>
+        <td>Long notes, complex structuring</td>
+        <td class="api-free">✅ 15 req/min free</td>
+        <td>1M tokens</td>
+        <td class="api-note">Best for large batches</td>
+      </tr>
+      <tr>
+        <td class="api-name">Groq (Llama 3)</td>
+        <td>Fast processing, short notes</td>
+        <td class="api-free">✅ Generous free tier</td>
+        <td>8K tokens</td>
+        <td class="api-note">Extremely fast inference</td>
+      </tr>
+      <tr>
+        <td class="api-name">OpenAI GPT-4o-mini</td>
+        <td>Structured JSON output</td>
+        <td>❌ Paid only</td>
+        <td>128K tokens</td>
+        <td class="api-note">Best JSON reliability</td>
+      </tr>
+      <tr>
+        <td class="api-name">Claude Haiku</td>
+        <td>Reasoning, edge cases</td>
+        <td>❌ Paid only</td>
+        <td>200K tokens</td>
+        <td class="api-note">Excellent for complex notes</td>
+      </tr>
+      <tr>
+        <td class="api-name">Mistral (free)</td>
+        <td>European data, privacy</td>
+        <td class="api-free">✅ Free tier</td>
+        <td>32K tokens</td>
+        <td class="api-note">Good alternative</td>
+      </tr>
+    </table>
+
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <div><strong>Token Economy Strategy:</strong> Use <strong>Groq</strong> for short/simple notes (fast & free), <strong>Gemini Flash</strong> for long notes (large context), and only fall back to paid APIs for edge cases. This way you can process hundreds of notes for free.</div>
+    </div>
+  </section>
+
+  <!-- SECTION 11: AGENT ARCHITECTURE -->
+  <section class="section" id="agent-architecture">
+    <div class="section-header">
+      <span class="section-num">11</span>
+      <h2>Agent Architecture</h2>
+    </div>
+
+    <p>Here's how to structure your project files from the very beginning. Good structure = easy to extend when you add frameworks later.</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PROJECT STRUCTURE</span>
+        <span class="code-label">recommended layout</span>
+      </div>
+      <pre">my-agent/
+├── .env                    <span class="cm"># API keys (NEVER commit)</span>
+├── .gitignore
+├── requirements.txt        <span class="cm"># pip dependencies</span>
+├── README.md
+│
+├── notes/                  <span class="cm"># Input: raw messy notes</span>
+│   ├── meeting_jan15.txt
+│   └── ideas_q1.txt
+│
+├── output/                 <span class="cm"># Output: structured docs</span>
+│   ├── meeting_jan15.json
+│   └── meeting_jan15.md
+│
+├── src/
+│   ├── agent.py            <span class="cm"># NoteAgent class</span>
+│   ├── router.py           <span class="cm"># Smart API router</span>
+│   ├── apis/
+│   │   ├── gemini.py       <span class="cm"># Gemini API wrapper</span>
+│   │   └── groq.py         <span class="cm"># Groq API wrapper</span>
+│   ├── processors/
+│   │   ├── cleaner.py      <span class="cm"># Text cleaning</span>
+│   │   └── formatter.py    <span class="cm"># Output formatting (MD/JSON)</span>
+│   └── config.py           <span class="cm"># Load env vars</span>
+│
+└── main.py                 <span class="cm"># Entry point</span></pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PYTHON — main.py entry point</span>
+        <span class="code-label">ties everything together</span>
+      </div>
+      <pre"><span class="kw">from</span> src.agent <span class="kw">import</span> NoteAgent
+<span class="kw">from</span> src.config <span class="kw">import</span> GEMINI_KEY, GROQ_KEY
+<span class="kw">import</span> os, json
+
+<span class="kw">def</span> <span class="fn">main</span>():
+    agent = <span class="cl">NoteAgent</span>(gemini_key=GEMINI_KEY, groq_key=GROQ_KEY)
+    
+    <span class="cm"># Process all notes in the /notes folder</span>
+    note_files = [f <span class="kw">for</span> f <span class="kw">in</span> os.<span class="fn">listdir</span>(<span class="st">"notes"</span>) <span class="kw">if</span> f.endswith(<span class="st">".txt"</span>)]
+    
+    <span class="fn">print</span>(<span class="st">f"Found {len(note_files)} notes to process..."</span>)
+    
+    <span class="kw">for</span> filename <span class="kw">in</span> note_files:
+        <span class="kw">with</span> <span class="fn">open</span>(<span class="st">f"notes/{filename}"</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
+            raw = f.read()
+        
+        <span class="fn">print</span>(<span class="st">f"Processing: {filename}"</span>)
+        result = agent.<span class="fn">process_note</span>(raw)
+        
+        out_path = <span class="st">f"output/{filename.replace('.txt', '.json')}"</span>
+        <span class="kw">with</span> <span class="fn">open</span>(out_path, <span class="st">"w"</span>) <span class="kw">as</span> f:
+            json.dump(result, f, indent=<span class="nu">2</span>, ensure_ascii=<span class="kw">False</span>)
+    
+    <span class="fn">print</span>(<span class="st">f"\n✅ Done! Stats: {agent.get_stats()}"</span>)
+
+<span class="kw">if</span> __name__ == <span class="st">"__main__"</span>:
+    <span class="fn">main</span>()</pre>
+    </div>
+  </section>
+
+  <!-- SECTION 12: FRAMEWORKS -->
+  <section class="section" id="frameworks">
+    <div class="section-header">
+      <span class="section-num">12</span>
+      <h2>Frameworks — Phase 2</h2>
+    </div>
+
+    <p>Once your raw Python agent is working, these frameworks will supercharge it:</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🦜</div>
+        <h4>LangChain</h4>
+        <p>The most popular agent framework. Chains, memory, tool use, retrievers. Great docs and community. Start here.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌊</div>
+        <h4>LangGraph</h4>
+        <p>Build stateful agents as graphs (nodes + edges). Perfect when your agent has complex multi-step decision logic.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🦙</div>
+        <h4>LlamaIndex</h4>
+        <p>Specialized in document ingestion, indexing, and RAG. Ideal if you want your agent to search over many notes.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <h4>CrewAI</h4>
+        <p>Orchestrate multiple specialized agents as a "crew". Good for splitting work: one agent cleans, one structures, one formats.</p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <span class="callout-icon">⚠️</span>
+      <div><strong>Don't jump to frameworks too early.</strong> Build your agent in raw Python first. This forces you to understand what the frameworks are actually doing under the hood — which makes debugging much easier later.</div>
+    </div>
+  </section>
+
+  <!-- SECTION 13: ROADMAP -->
+  <section class="section" id="roadmap">
+    <div class="section-header">
+      <span class="section-num">13</span>
+      <h2>Your Project Roadmap</h2>
+    </div>
+
+    <div class="roadmap">
+      <div class="roadmap-item">
+        <div class="roadmap-dot done">✓</div>
+        <div class="roadmap-body">
+          <h4>Phase 0 — Read this guide</h4>
+          <p>Get comfortable with Python syntax, dicts, functions, and file I/O.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot active">①</div>
+        <div class="roadmap-body">
+          <h4>Phase 1 — Raw Python Agent</h4>
+          <p>Build NoteAgent from scratch: read .txt → call one API → save .json. No frameworks. Get one API working end-to-end.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot future">②</div>
+        <div class="roadmap-body">
+          <h4>Phase 2 — Multi-API Router</h4>
+          <p>Add Groq + Gemini. Implement the smart routing logic to split work and save tokens. Add retry logic.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot future">③</div>
+        <div class="roadmap-body">
+          <h4>Phase 3 — Output Formats</h4>
+          <p>Generate Markdown, JSON, and plain text outputs. Add templates per note type (meeting, idea, todo).</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot future">④</div>
+        <div class="roadmap-body">
+          <h4>Phase 4 — Frameworks</h4>
+          <p>Refactor with LangChain or LlamaIndex. Add memory so the agent can reference past notes for context.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot future">⑤</div>
+        <div class="roadmap-body">
+          <h4>Phase 5 — Team & Collaboration</h4>
+          <p>Split modules between team members. Each person owns one API wrapper or one output formatter. Use git properly.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <span class="callout-icon">🎯</span>
+      <div><strong>Quick Start Checklist:</strong> Install Python → create venv → get a Gemini API key (free) → copy the structure_note_gemini() function → create one .txt note file → run it. You'll have a working agent in under an hour.</div>
+    </div>
+  </section>
+
+  <footer>
+    Built for your <span>AI Note Agent</span> project · Python Guide · 2024
+  </footer>
+
+</main>
+</div>
+
+<script>
+  // Highlight active nav link on scroll
+  const sections = document.querySelectorAll('.section, .hero');
+  const navLinks = document.querySelectorAll('nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Smooth scroll
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
