@@ -1,0 +1,7 @@
+jan 15 meet w alice bob q1 goals 
+discussed roadmap for first quarter and budget allocation
+decided to fix auth bug before end of month
+deploy next week to production
+alice will handle testing, bob will handle deployment
+need to schedule client demo for feb 1
+next meeting jan 22 same time
