@@ -459,6 +459,50 @@
   .api-free { color: var(--accent) !important; }
   .api-note { color: var(--accent3) !important; font-size: 12px; }
 
+  /* EXPLANATION CARDS — inline "why does this work?" panels */
+  .explain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0 28px;
+  }
+
+  .explain-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--accent2);
+    border-radius: 4px;
+    padding: 16px 18px;
+  }
+
+  .explain-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .explain-card p {
+    font-size: 13px;
+    color: #8a94ae;
+    margin: 0;
+    line-height: 1.75;
+  }
+
+  .explain-card code {
+    font-size: 11.5px;
+    background: var(--code-bg);
+    border-color: #2a3048;
+    color: var(--accent);
+    padding: 1px 5px;
+  }
+
+  @media (max-width: 900px) {
+    .explain-grid { grid-template-columns: 1fr; }
+  }
+
   /* DIVIDER */
   hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
 
@@ -982,42 +1026,81 @@ note_files = [f <span class="kw">for</span> f <span class="kw">in</span> os.list
 
     <div class="code-block">
       <div class="code-header">
-        <span class="code-lang">PYTHON — try/except (like try/catch in Java)</span>
-        <span class="code-label">exception handling</span>
+        <span class="code-lang">PYTHON — Retry Logic with try/except</span>
+        <span class="code-label">like try/catch in Java</span>
       </div>
-      <pre"><span class="kw">import</span> time
+      <pre><span class="kw">import</span> time
 
 <span class="kw">def</span> <span class="fn">call_api_safely</span>(prompt: str, retries: int = <span class="nu">3</span>) -> str:
     <span class="st">"""Call API with retry logic — essential for production."""</span>
 
-    <span class="kw">for</span> attempt <span class="kw">in</span> <span class="fn">range</span>(retries):
+    <span class="kw">for</span> attempt <span class="kw">in</span> <span class="fn">range</span>(retries):        <span class="cm"># range(3) → loops 0, 1, 2</span>
         <span class="kw">try</span>:
-            response = api.<span class="fn">generate</span>(prompt)   <span class="cm"># might fail</span>
-            <span class="kw">return</span> response.text
+            response = api.<span class="fn">generate</span>(prompt)
+            <span class="kw">return</span> response.text           <span class="cm"># success → exit the function immediately</span>
 
-        <span class="kw">except</span> ConnectionError <span class="kw">as</span> e:
+        <span class="kw">except</span> ConnectionError <span class="kw">as</span> e:      <span class="cm"># network down / timeout</span>
             <span class="fn">print</span>(<span class="st">f"Network error (attempt {attempt+1}): {e}"</span>)
-            time.<span class="fn">sleep</span>(<span class="nu">2</span>)                    <span class="cm"># wait before retry</span>
+            time.<span class="fn">sleep</span>(<span class="nu">2</span>)                <span class="cm"># wait 2s, then loop continues → retry</span>
 
-        <span class="kw">except</span> ValueError <span class="kw">as</span> e:
+        <span class="kw">except</span> ValueError <span class="kw">as</span> e:           <span class="cm"># API replied but sent garbage JSON</span>
             <span class="fn">print</span>(<span class="st">f"Bad response format: {e}"</span>)
-            <span class="kw">return</span> <span class="kw">None</span>                      <span class="cm"># don't retry this one</span>
+            <span class="kw">return</span> <span class="kw">None</span>                  <span class="cm"># retrying is pointless → stop now</span>
 
-        <span class="kw">except</span> Exception <span class="kw">as</span> e:
+        <span class="kw">except</span> Exception <span class="kw">as</span> e:            <span class="cm"># anything unexpected</span>
             <span class="fn">print</span>(<span class="st">f"Unexpected error: {e}"</span>)
-            <span class="kw">raise</span>                             <span class="cm"># re-raise unknown errors</span>
+            <span class="kw">raise</span>                         <span class="cm"># re-throw → like "throw e" in Java</span>
 
+    <span class="cm"># This line is only reached if ALL 3 attempts failed with ConnectionError</span>
     <span class="fn">print</span>(<span class="st">"All retries failed."</span>)
-    <span class="kw">return</span> <span class="kw">None</span>
+    <span class="kw">return</span> <span class="kw">None</span></pre>
+    </div>
 
-<span class="cm"># Custom exception for your project</span>
+    <div class="explain-grid">
+      <div class="explain-card">
+        <div class="explain-tag">⚙️ How the retry loop works</div>
+        <p><code>for attempt in range(3)</code> runs the block up to 3 times (attempt = 0, 1, 2). If <code>return response.text</code> is hit on attempt 0, the function exits immediately — no more iterations. If a <code>ConnectionError</code> happens instead, <code>time.sleep(2)</code> pauses execution for 2 seconds, then the loop naturally continues to attempt 1. The retry only happens for <code>ConnectionError</code> — not for the other two except blocks, which both exit the function early.</p>
+      </div>
+      <div class="explain-card">
+        <div class="explain-tag">⚖️ Three different strategies</div>
+        <p><strong>ConnectionError</strong> → wait and retry (network might come back). <strong>ValueError</strong> → return None and stop (retrying gives the same garbage). <strong>Exception</strong> → <code>raise</code> with no argument re-throws the current exception up the call stack — exactly like <code>throw e</code> in Java. Never silently swallow unknown errors: you need to know they happened.</p>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-lang">PYTHON — Custom Exception + Length Check</span>
+        <span class="code-label">like "extends Exception" in Java</span>
+      </div>
+      <pre><span class="cm"># Define a custom exception — like "public class TokenLimitError extends Exception" in Java</span>
 <span class="kw">class</span> <span class="cl">TokenLimitError</span>(Exception):
     <span class="st">"""Raised when a note exceeds the token limit."""</span>
-    <span class="kw">pass</span>
+    <span class="kw">pass</span>                               <span class="cm"># "pass" = empty body (parent handles everything)</span>
 
 <span class="kw">def</span> <span class="fn">check_note_length</span>(note: str, limit: int = <span class="nu">4000</span>):
+    <span class="cm"># note.split()  → splits by spaces → gives a LIST of words</span>
+    <span class="cm"># len(...)      → counts items in the list = word count</span>
     <span class="kw">if</span> <span class="fn">len</span>(note.split()) > limit:
-        <span class="kw">raise</span> <span class="cl">TokenLimitError</span>(<span class="st">f"Note too long: {len(note.split())} words"</span>)</pre>
+        <span class="kw">raise</span> <span class="cl">TokenLimitError</span>(<span class="st">f"Note too long: {len(note.split())} words"</span>)
+        <span class="cm"># ↑ like "throw new TokenLimitError(...)" in Java</span>
+
+<span class="cm"># How to use it:</span>
+<span class="kw">try</span>:
+    <span class="fn">check_note_length</span>(my_note)
+    result = <span class="fn">call_api_safely</span>(my_note)
+<span class="kw">except</span> <span class="cl">TokenLimitError</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="st">f"Note rejected: {e}"</span>)       <span class="cm"># handle gracefully</span></pre>
+    </div>
+
+    <div class="explain-grid">
+      <div class="explain-card">
+        <div class="explain-tag">🧩 What is <code>pass</code>?</div>
+        <p>Python requires at least one statement inside every class or function body. <code>pass</code> is a no-op placeholder that means "nothing to add here". Since <code>TokenLimitError</code> inherits everything from <code>Exception</code> (the message, the stack trace, etc.), there is genuinely nothing to add — so <code>pass</code> is correct and complete.</p>
+      </div>
+      <div class="explain-card">
+        <div class="explain-tag">🔍 Why <code>.split()</code> for word count?</div>
+        <p><code>"hello world foo".split()</code> returns <code>["hello", "world", "foo"]</code> — a list of words split by whitespace. <code>len()</code> then counts the list items. This is a fast, good-enough approximation of token count. Real tokenizers are more complex, but for routing decisions (short vs long note), word count works perfectly.</p>
+      </div>
     </div>
   </section>
 
@@ -1035,14 +1118,18 @@ note_files = [f <span class="kw">for</span> f <span class="kw">in</span> os.list
         <span class="code-lang">PYTHON — Google Gemini API</span>
         <span class="code-label">pip install google-generativeai</span>
       </div>
-      <pre"><span class="kw">import</span> google.generativeai <span class="kw">as</span> genai
-<span class="kw">import</span> os, json
+      <pre><span class="kw">import</span> google.generativeai <span class="kw">as</span> genai   <span class="cm"># "as genai" = nickname, like an alias</span>
+<span class="kw">import</span> os, json                         <span class="cm"># two imports on one line</span>
 
+<span class="cm"># Authenticate once at the top — reads your key from .env</span>
 genai.<span class="fn">configure</span>(api_key=os.<span class="fn">getenv</span>(<span class="st">"GEMINI_API_KEY"</span>))
 
 <span class="kw">def</span> <span class="fn">structure_note_gemini</span>(raw_note: str) -> dict:
+    <span class="cm"># Instantiate the model — like: GenerativeModel model = new GenerativeModel("...") in Java</span>
     model = genai.<span class="cl">GenerativeModel</span>(<span class="st">"gemini-1.5-flash"</span>)
 
+    <span class="cm"># f"""...""" = multi-line f-string. {raw_note} is injected at the bottom.</span>
+    <span class="cm"># The instructions above it guide the AI — the wording matters a lot.</span>
     prompt = <span class="st">f"""
 Convert the following messy note into a structured JSON document.
 Return ONLY valid JSON with these fields:
@@ -1058,20 +1145,35 @@ Note:
     """</span>
 
     response = model.<span class="fn">generate_content</span>(prompt)
-    text = response.text.strip()
+    text = response.text.<span class="fn">strip</span>()         <span class="cm"># remove surrounding whitespace/newlines</span>
 
-    <span class="cm"># Clean up if model wraps in markdown code block</span>
-    <span class="kw">if</span> text.startswith(<span class="st">"```"</span>):
-        text = text.split(<span class="st">"```"</span>)[<span class="nu">1</span>]
-        <span class="kw">if</span> text.startswith(<span class="st">"json"</span>):
-            text = text[<span class="nu">4</span>:]
+    <span class="cm"># The AI sometimes wraps its answer in markdown backticks like:</span>
+    <span class="cm"># ```json</span>
+    <span class="cm"># { "title": "Meeting" }</span>
+    <span class="cm"># ```</span>
+    <span class="cm"># We need to strip that wrapper before parsing.</span>
+    <span class="kw">if</span> text.<span class="fn">startswith</span>(<span class="st">"```"</span>):
+        text = text.<span class="fn">split</span>(<span class="st">"```"</span>)[<span class="nu">1</span>]      <span class="cm"># split by ``` → take the middle part</span>
+        <span class="kw">if</span> text.<span class="fn">startswith</span>(<span class="st">"json"</span>):
+            text = text[<span class="nu">4</span>:]               <span class="cm"># skip the word "json" (4 characters)</span>
 
-    <span class="kw">return</span> json.<span class="fn">loads</span>(text)     <span class="cm"># parse JSON string -> dict</span>
+    <span class="kw">return</span> json.<span class="fn">loads</span>(text)              <span class="cm"># JSON string → Python dict (like JSON.parse())</span>
 
-<span class="cm"># Test it</span>
+<span class="cm"># --- Test it ---</span>
 raw = <span class="st">"jan 15 meet w alice bob q1 goals fix the auth bug deploy next week"</span>
 result = <span class="fn">structure_note_gemini</span>(raw)
-<span class="fn">print</span>(json.<span class="fn">dumps</span>(result, indent=<span class="nu">2</span>))</pre>
+<span class="fn">print</span>(json.<span class="fn">dumps</span>(result, indent=<span class="nu">2</span>))   <span class="cm"># dict → formatted JSON string (opposite of loads)</span></pre>
+    </div>
+
+    <div class="explain-grid">
+      <div class="explain-card">
+        <div class="explain-tag">🔀 <code>json.loads</code> vs <code>json.dumps</code></div>
+        <p><code>loads</code> (load from <strong>s</strong>tring) converts a JSON string into a Python dict — what you use when the API sends you data. <code>dumps</code> (dump to <strong>s</strong>tring) does the opposite — converts a dict back into a formatted JSON string — what you use to print or save. The <code>s</code> stands for "string" in both cases.</p>
+      </div>
+      <div class="explain-card">
+        <div class="explain-tag">🧹 Why strip the backticks?</div>
+        <p>Even when you say "Return ONLY valid JSON", the AI sometimes adds a markdown code fence around its answer (<code>```json ... ```</code>). <code>text.split("```")[1]</code> splits the string by the backtick fence and takes index <code>[1]</code> — the middle piece — which is the raw JSON. <code>text[4:]</code> then skips the 4-character word <code>"json"</code> that follows the opening fence.</p>
+      </div>
     </div>
 
     <div class="code-block">
@@ -1079,14 +1181,19 @@ result = <span class="fn">structure_note_gemini</span>(raw)
         <span class="code-lang">PYTHON — Groq API (ultra-fast)</span>
         <span class="code-label">pip install groq</span>
       </div>
-      <pre"><span class="kw">from</span> groq <span class="kw">import</span> Groq
+      <pre><span class="kw">from</span> groq <span class="kw">import</span> Groq
 <span class="kw">import</span> os, json
 
+<span class="cm"># Create the client once — holds your credentials</span>
 client = <span class="cl">Groq</span>(api_key=os.<span class="fn">getenv</span>(<span class="st">"GROQ_API_KEY"</span>))
 
 <span class="kw">def</span> <span class="fn">structure_note_groq</span>(raw_note: str) -> dict:
     completion = client.chat.completions.<span class="fn">create</span>(
-        model=<span class="st">"llama3-8b-8192"</span>,    <span class="cm"># fast + free tier</span>
+        model=<span class="st">"llama3-8b-8192"</span>,        <span class="cm"># model name: llama3, 8 billion params, 8192 token ctx</span>
+
+        <span class="cm"># Groq uses a chat-style API: you send a LIST of messages with roles.</span>
+        <span class="cm"># "system" = background instructions (like a job description for the AI)</span>
+        <span class="cm"># "user"   = the actual request (like what you'd type in a chat)</span>
         messages=[
             {
                 <span class="st">"role"</span>: <span class="st">"system"</span>,
@@ -1097,11 +1204,28 @@ client = <span class="cl">Groq</span>(api_key=os.<span class="fn">getenv</span>(
                 <span class="st">"content"</span>: <span class="st">f"Structure this note as JSON with: title, date, summary, action_items, tags.\n\n{raw_note}"</span>
             }
         ],
-        temperature=<span class="nu">0.2</span>,           <span class="cm"># low = more deterministic output</span>
-        max_tokens=<span class="nu">1024</span>,
+
+        temperature=<span class="nu">0.2</span>,   <span class="cm"># 0.0 = robotic/deterministic, 1.0 = creative/random. Low = consistent JSON</span>
+        max_tokens=<span class="nu">1024</span>,  <span class="cm"># max length of the AI's response</span>
     )
+
+    <span class="cm"># Navigate the response object to get the text:</span>
+    <span class="cm"># completion.choices  → list of possible responses (usually just 1)</span>
+    <span class="cm"># [0]                 → take the first one</span>
+    <span class="cm"># .message.content    → the actual text string</span>
     text = completion.choices[<span class="nu">0</span>].message.content
-    <span class="kw">return</span> json.<span class="fn">loads</span>(text)</pre>
+    <span class="kw">return</span> json.<span class="fn">loads</span>(text)             <span class="cm"># JSON string → Python dict</span></pre>
+    </div>
+
+    <div class="explain-grid">
+      <div class="explain-card">
+        <div class="explain-tag">💬 The system / user roles</div>
+        <p>The <code>messages</code> list simulates a conversation. <code>system</code> sets the AI's global behavior — like giving an employee their job description before they start working. <code>user</code> is the specific task for this call. You send both together every time. A third role, <code>assistant</code>, would hold the AI's previous replies if you were building a multi-turn conversation — not needed here.</p>
+      </div>
+      <div class="explain-card">
+        <div class="explain-tag">🌡️ What is <code>temperature</code>?</div>
+        <p>Temperature controls how "creative" (random) the AI's output is. At <code>0.0</code> it always picks the most probable next word — fully deterministic. At <code>1.0</code> it's much more varied. For JSON output you want <code>0.1–0.3</code>: low enough to produce consistent, parseable structure, but not so low that it gets stuck in repetition loops.</p>
+      </div>
     </div>
 
     <div class="code-block">
@@ -1109,29 +1233,44 @@ client = <span class="cl">Groq</span>(api_key=os.<span class="fn">getenv</span>(
         <span class="code-lang">PYTHON — Smart Router (split work between APIs)</span>
         <span class="code-label">token economy strategy</span>
       </div>
-      <pre"><span class="cm"># Route notes to different APIs based on length/complexity</span>
+      <pre><span class="cm"># Route each note to the right API based on its length</span>
 <span class="kw">def</span> <span class="fn">smart_route</span>(raw_note: str) -> dict:
-    word_count = <span class="fn">len</span>(raw_note.split())
+    word_count = <span class="fn">len</span>(raw_note.<span class="fn">split</span>())   <span class="cm"># split by spaces → list of words → count them</span>
 
     <span class="kw">if</span> word_count &lt; <span class="nu">100</span>:
-        <span class="cm"># Short note → use fast Groq (free, instant)</span>
         <span class="fn">print</span>(<span class="st">f"→ Routing to Groq ({word_count} words)"</span>)
-        <span class="kw">return</span> <span class="fn">structure_note_groq</span>(raw_note)
+        <span class="kw">return</span> <span class="fn">structure_note_groq</span>(raw_note)    <span class="cm"># fast, free, small context</span>
     <span class="kw">else</span>:
-        <span class="cm"># Long note → use Gemini (larger context window)</span>
         <span class="fn">print</span>(<span class="st">f"→ Routing to Gemini ({word_count} words)"</span>)
-        <span class="kw">return</span> <span class="fn">structure_note_gemini</span>(raw_note)
+        <span class="kw">return</span> <span class="fn">structure_note_gemini</span>(raw_note)  <span class="cm"># 1M token context window</span>
 
-<span class="cm"># Process a folder of notes</span>
+<span class="cm"># ── Process every .txt file in the notes/ folder ──────────────────────</span>
 <span class="kw">import</span> os
 
-<span class="kw">for</span> filename <span class="kw">in</span> os.<span class="fn">listdir</span>(<span class="st">"notes/"</span>):
-    <span class="kw">if</span> filename.endswith(<span class="st">".txt"</span>):
+<span class="kw">for</span> filename <span class="kw">in</span> os.<span class="fn">listdir</span>(<span class="st">"notes/"</span>):       <span class="cm"># like File[].listFiles() in Java</span>
+    <span class="kw">if</span> filename.<span class="fn">endswith</span>(<span class="st">".txt"</span>):
+        <span class="cm"># "with open(...) as f:"  →  like try-with-resources in Java</span>
+        <span class="cm"># The file closes automatically when the indented block ends.</span>
         <span class="kw">with</span> <span class="fn">open</span>(<span class="st">f"notes/{filename}"</span>) <span class="kw">as</span> f:
-            note = f.read()
-        result = <span class="fn">smart_route</span>(note)
+            note = f.<span class="fn">read</span>()                 <span class="cm"># reads entire file as one string</span>
+
+        result = <span class="fn">smart_route</span>(note)           <span class="cm"># dict returned by whichever API was chosen</span>
+
+        <span class="cm"># json.dump  → write dict to FILE  (no 's')</span>
+        <span class="cm"># json.dumps → write dict to STRING (with 's')</span>
         <span class="kw">with</span> <span class="fn">open</span>(<span class="st">f"output/{filename}.json"</span>, <span class="st">"w"</span>) <span class="kw">as</span> out:
-            json.dump(result, out, indent=<span class="nu">2</span>)</pre>
+            json.<span class="fn">dump</span>(result, out, indent=<span class="nu">2</span>)</pre>
+    </div>
+
+    <div class="explain-grid">
+      <div class="explain-card">
+        <div class="explain-tag">🗂️ <code>with open(...) as f:</code> explained</div>
+        <p>This is Python's equivalent of Java's try-with-resources. It opens the file, gives you a handle <code>f</code>, and <strong>automatically closes the file</strong> when the indented block exits — even if an exception occurs. Without it, you'd need to manually call <code>f.close()</code>. Always use <code>with open</code> for file I/O.</p>
+      </div>
+      <div class="explain-card">
+        <div class="explain-tag">🔌 The Strategy Pattern in 4 lines</div>
+        <p><code>smart_route()</code> is the Strategy Pattern — same interface, different implementations chosen at runtime based on a condition (word count). In Java you'd likely define an interface and two implementing classes. In Python, a simple <code>if/else</code> calling two different functions achieves the same result with far less boilerplate.</p>
+      </div>
     </div>
   </section>
 
@@ -1207,32 +1346,43 @@ client = <span class="cl">Groq</span>(api_key=os.<span class="fn">getenv</span>(
         <span class="code-lang">PROJECT STRUCTURE</span>
         <span class="code-label">recommended layout</span>
       </div>
-      <pre">my-agent/
-├── .env                    <span class="cm"># API keys (NEVER commit)</span>
-├── .gitignore
-├── requirements.txt        <span class="cm"># pip dependencies</span>
+      <pre>my-agent/
+├── .env                    <span class="cm"># API keys — NEVER commit to git</span>
+├── .gitignore              <span class="cm"># tells git to ignore .env, venv/, __pycache__/</span>
+├── requirements.txt        <span class="cm"># like pom.xml: list of all pip dependencies</span>
 ├── README.md
 │
-├── notes/                  <span class="cm"># Input: raw messy notes</span>
+├── notes/                  <span class="cm"># INPUT: drop your raw .txt files here</span>
 │   ├── meeting_jan15.txt
 │   └── ideas_q1.txt
 │
-├── output/                 <span class="cm"># Output: structured docs</span>
+├── output/                 <span class="cm"># OUTPUT: structured .json and .md files land here</span>
 │   ├── meeting_jan15.json
 │   └── meeting_jan15.md
 │
-├── src/
-│   ├── agent.py            <span class="cm"># NoteAgent class</span>
-│   ├── router.py           <span class="cm"># Smart API router</span>
-│   ├── apis/
-│   │   ├── gemini.py       <span class="cm"># Gemini API wrapper</span>
-│   │   └── groq.py         <span class="cm"># Groq API wrapper</span>
-│   ├── processors/
-│   │   ├── cleaner.py      <span class="cm"># Text cleaning</span>
-│   │   └── formatter.py    <span class="cm"># Output formatting (MD/JSON)</span>
-│   └── config.py           <span class="cm"># Load env vars</span>
+├── src/                    <span class="cm"># all Python source code lives here</span>
+│   ├── config.py           <span class="cm"># loads .env → exposes GEMINI_KEY, GROQ_KEY</span>
+│   ├── agent.py            <span class="cm"># NoteAgent class — the main brain</span>
+│   ├── router.py           <span class="cm"># smart_route() function</span>
+│   ├── apis/               <span class="cm"># one file per API — easy to add more</span>
+│   │   ├── gemini.py
+│   │   └── groq.py
+│   └── processors/
+│       ├── cleaner.py      <span class="cm"># text cleaning utilities</span>
+│       └── formatter.py    <span class="cm"># converts dict → Markdown or JSON string</span>
 │
-└── main.py                 <span class="cm"># Entry point</span></pre>
+└── main.py                 <span class="cm"># entry point — like public static void main()</span></pre>
+    </div>
+
+    <div class="explain-grid">
+      <div class="explain-card">
+        <div class="explain-tag">📦 Why <code>src/</code> subfolder?</div>
+        <p>Putting all code inside <code>src/</code> separates your source from config files, input data, and output. When you import between files you write <code>from src.apis.gemini import structure_note_gemini</code> — Python reads the dots as folder separators. Each folder with Python files needs an empty <code>__init__.py</code> file so Python treats it as a package (module group).</p>
+      </div>
+      <div class="explain-card">
+        <div class="explain-tag">🙈 What goes in <code>.gitignore</code>?</div>
+        <p>At minimum: <code>.env</code> (secrets), <code>venv/</code> (the virtual environment — hundreds of MB, never committed), <code>__pycache__/</code> (Python's compiled bytecode cache), and <code>output/</code> (generated files). Your teammates regenerate these locally. Only source code and config templates go into git.</p>
+      </div>
     </div>
 
     <div class="code-block">
@@ -1240,33 +1390,54 @@ client = <span class="cl">Groq</span>(api_key=os.<span class="fn">getenv</span>(
         <span class="code-lang">PYTHON — main.py entry point</span>
         <span class="code-label">ties everything together</span>
       </div>
-      <pre"><span class="kw">from</span> src.agent <span class="kw">import</span> NoteAgent
+      <pre><span class="cm"># "from src.agent import NoteAgent"</span>
+<span class="cm"># → go into the src/ folder, open agent.py, import the NoteAgent class</span>
+<span class="cm"># → like "import src.agent.NoteAgent" in Java</span>
+<span class="kw">from</span> src.agent <span class="kw">import</span> NoteAgent
 <span class="kw">from</span> src.config <span class="kw">import</span> GEMINI_KEY, GROQ_KEY
 <span class="kw">import</span> os, json
 
 <span class="kw">def</span> <span class="fn">main</span>():
     agent = <span class="cl">NoteAgent</span>(gemini_key=GEMINI_KEY, groq_key=GROQ_KEY)
-    
-    <span class="cm"># Process all notes in the /notes folder</span>
-    note_files = [f <span class="kw">for</span> f <span class="kw">in</span> os.<span class="fn">listdir</span>(<span class="st">"notes"</span>) <span class="kw">if</span> f.endswith(<span class="st">".txt"</span>)]
-    
+
+    <span class="cm"># List comprehension: build a list of .txt filenames in one line</span>
+    <span class="cm"># Equivalent Java: list.stream().filter(f -> f.endsWith(".txt")).collect(...)</span>
+    note_files = [f <span class="kw">for</span> f <span class="kw">in</span> os.<span class="fn">listdir</span>(<span class="st">"notes"</span>) <span class="kw">if</span> f.<span class="fn">endswith</span>(<span class="st">".txt"</span>)]
+
     <span class="fn">print</span>(<span class="st">f"Found {len(note_files)} notes to process..."</span>)
-    
+
     <span class="kw">for</span> filename <span class="kw">in</span> note_files:
         <span class="kw">with</span> <span class="fn">open</span>(<span class="st">f"notes/{filename}"</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
-            raw = f.read()
-        
+            raw = f.<span class="fn">read</span>()                <span class="cm"># entire file as one string</span>
+
         <span class="fn">print</span>(<span class="st">f"Processing: {filename}"</span>)
-        result = agent.<span class="fn">process_note</span>(raw)
-        
+        result = agent.<span class="fn">process_note</span>(raw)  <span class="cm"># returns a dict</span>
+
+        <span class="cm"># filename.replace('.txt', '.json') → "meeting_jan15.txt" → "meeting_jan15.json"</span>
         out_path = <span class="st">f"output/{filename.replace('.txt', '.json')}"</span>
         <span class="kw">with</span> <span class="fn">open</span>(out_path, <span class="st">"w"</span>) <span class="kw">as</span> f:
-            json.dump(result, f, indent=<span class="nu">2</span>, ensure_ascii=<span class="kw">False</span>)
-    
+            <span class="cm"># ensure_ascii=False → allows Arabic, French, accented chars to save as-is</span>
+            <span class="cm"># without it, "é" would be saved as "\u00e9"</span>
+            json.<span class="fn">dump</span>(result, f, indent=<span class="nu">2</span>, ensure_ascii=<span class="kw">False</span>)
+
     <span class="fn">print</span>(<span class="st">f"\n✅ Done! Stats: {agent.get_stats()}"</span>)
 
+<span class="cm"># This block runs ONLY when you execute "python main.py" directly.</span>
+<span class="cm"># If another file imports main.py, this block is skipped.</span>
+<span class="cm"># Equivalent to: public static void main(String[] args) in Java.</span>
 <span class="kw">if</span> __name__ == <span class="st">"__main__"</span>:
     <span class="fn">main</span>()</pre>
+    </div>
+
+    <div class="explain-grid">
+      <div class="explain-card">
+        <div class="explain-tag">❓ What is <code>if __name__ == "__main__"</code>?</div>
+        <p>Every Python file has a built-in variable <code>__name__</code>. When you run a file directly (<code>python main.py</code>), Python sets <code>__name__</code> to <code>"__main__"</code>. When another file imports it, <code>__name__</code> becomes the module name instead. This guard ensures your startup code only runs when you intend it to — exactly like Java's <code>public static void main()</code> entry point.</p>
+      </div>
+      <div class="explain-card">
+        <div class="explain-tag">🌍 Why <code>ensure_ascii=False</code>?</div>
+        <p>By default, <code>json.dump</code> escapes every non-ASCII character: the French "é" becomes the ugly <code>\u00e9</code> in your output file. Setting <code>ensure_ascii=False</code> tells Python to write characters as-is in UTF-8. Since your notes might contain Arabic, French, or accented characters, always set this to <code>False</code>.</p>
+      </div>
     </div>
   </section>
 

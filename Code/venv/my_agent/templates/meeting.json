@@ -1,0 +1,6 @@
+{
+    "_description": "Template for meeting notes - defines what the API request should return",
+    "type": "meeting",
+    "prompt": "Convert the following messy meeting note into a structured JSON document.\n\nReturn ONLY valid JSON with these exact fields:\n- title (string): a clear, professional meeting title\n- date (string or null): the meeting date if mentioned, else null\n- participants (list of strings): names of people mentioned\n- agenda_items (list of strings): topics that were discussed\n- decisions_made (list of strings): any decisions or conclusions\n- action_items (list of objects): each with 'task' (string), 'owner' (string), 'due_date' (string or null)\n- summary (string): 2-3 sentence summary of the meeting\n- tags (list of strings): 3-5 relevant keywords\n\nNote:\n{raw_note}",
+    "required_fields": ["title", "date", "participants", "action_items", "summary"]
+}
