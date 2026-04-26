@@ -1,5 +1,9 @@
 import json
+import os
 from pathlib import Path
+
+# Base directory = folder where main.py lives (my_agent/)
+BASE_DIR = Path(os.path.dirname(os.path.abspath(__file__)))
 from src.apis.groq import call_groq
 from src.extractors.prompt_builder import build_prompt
 from src.renderers.meeting import render_meeting
@@ -7,8 +11,8 @@ from src.renderers.meeting import render_meeting
 
 def main():
     # Paths
-    notes_dir = Path("notes")
-    output_dir = Path("output")
+    notes_dir = BASE_DIR / "notes"
+    output_dir = BASE_DIR / "output"
     output_dir.mkdir(exist_ok=True)
 
     # Find all .txt files

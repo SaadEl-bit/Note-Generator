@@ -1,11 +1,15 @@
 import json
+import os
 from pathlib import Path
+
+# Base directory = my_agent/ (two levels up from extractors/)
+BASE_DIR = Path(os.path.dirname(os.path.abspath(__file__))).parent.parent
 
 
 def load_template(template_name: str) -> dict:
     """Load a JSON template from the templates/ folder."""
     #Creating the path of the template
-    template_path = Path("templates") / f"{template_name}.json"
+    template_path = BASE_DIR / "templates" / f"{template_name}.json"
     #Opening the template .json file 
     with open(template_path, "r", encoding="utf-8") as f:
         return json.load(f)
