@@ -24,3 +24,8 @@ def build_prompt(template_name: str, raw_note: str) -> tuple[str, list]:
     prompt = template["prompt"].format(raw_note=raw_note)
     required_fields = template.get("required_fields", [])
     return prompt, required_fields
+
+def list_available_templates() -> list[str]:
+    """Return list of available template names."""
+    templates_dir = BASE_DIR / "templates"
+    return [f.stem for f in templates_dir.glob("*.json")]

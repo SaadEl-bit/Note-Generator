@@ -1,0 +1,5 @@
+{
+    "type": "todo",
+    "prompt": "Convert the following todo list into a structured JSON document.\n\nReturn ONLY valid JSON with these exact fields:\n- title (string): name of the task list or project\n- date (string or null): when the list was created\n- tasks (list of objects): each with:\n  - description (string): what needs to be done\n  - priority (string): \"high\", \"medium\", or \"low\"\n  - due_date (string or null): deadline if mentioned\n  - status (string): \"pending\", \"in_progress\", or \"done\"\n- categories (list of strings): groupings or projects\n- tags (list of strings): 2-4 relevant keywords\n\nInfer priorities and statuses from context words like \"urgent\", \"ASAP\", \"later\", \"done\", \"completed\".\n\nNote:\n{raw_note}",
+    "required_fields": ["title", "tasks"]
+}

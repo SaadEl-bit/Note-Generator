@@ -1,0 +1,7 @@
+project tasks for this week
+urgent: fix the API retry logic - due friday
+medium: add error handling for missing fields - due next monday
+low: update documentation - no deadline
+completed: set up virtual environment
+in progress: building the classifier module
+priority: get groq API working end to end ASAP

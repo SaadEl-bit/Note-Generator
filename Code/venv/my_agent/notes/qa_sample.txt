@@ -1,0 +1,5 @@
+question: why does the API sometimes return markdown fences around JSON
+answer: because the model was trained on markdown code blocks and sometimes follows that pattern even when instructed not to. you need to strip the backticks and json label before parsing
+sources: groq docs, openai community forum
+confidence: high
+follow up: how to make the model consistently return raw JSON without fences
