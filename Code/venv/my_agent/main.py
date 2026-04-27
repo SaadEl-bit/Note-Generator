@@ -57,9 +57,11 @@ def main():
 
         # 6. RENDER docx
         output_path = output_dir / f"{note_file.stem}.docx"
-        render_meeting(data, str(output_path))
-
-        print(f"  Done.\n")
+        try:
+            render_meeting(data, str(output_path))
+            print(f"  Done.\n")
+        except PermissionError:
+            print(f"  SKIPPED: '{output_path.name}' is open in another program. Close it and retry.\n")
 
     print("=" * 40)
     print("Batch processing complete.")

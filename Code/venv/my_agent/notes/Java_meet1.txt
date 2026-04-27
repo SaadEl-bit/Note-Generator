@@ -1,0 +1,19 @@
+## What Should the application do :
+
+- Gérer l’ensemble des informations académiques, depuis l’inscription des étudiants jusqu’à l’attribution des notes, tout en offrant un suivi précis des cours, des emplois
+- les éventuels prérequis ou restrictions liés à certains modules :
+        
+- Les enseignants sont également enregistrés avec leurs
+informations personnelles, leurs spécialités et les cours qu’ils enseignent.
+- Le département organise des cours et des examens pour chaque semestre.
+- Les enseignants saisissent les contenus des cours, les supports pédagogiques et les dates importantes.
+- Le système permet de générer automatiquement les emplois du temps des étudiants et des enseignants, en prenant en compte les contraintes de disponibilité des salles et des intervenants.
+- En cas de modification, le système ajuste les emplois du temps et informe les utilisateurs concernés.
+- Pour le suivi académique, les enseignants peuvent enregistrer les notes et les appréciations pour chaque étudiant.
+- Le système calcule automatiquement les moyennes,
+génère les bulletins et assure le suivi des crédits ECTS.
+- Les étudiants peuvent consulter leurs notes et suivre leur progression dans le programme.
+- En cas de réclamation ou de réexamen, le système permet de gérer les demandes et d’archiver les décisions prises.
+- L’application inclut également la gestion administrative des cours et des programmes
+- Les responsables du département peuvent ajouter ou modifier des cours, attribuer des enseignants, définir les critères d’évaluation et planifier les examens. Ils peuvent également générer des rapports statistiques sur la réussite des étudiants, l’occupation des salles et la répartition des enseignements, afin d’optimiser l’organisation académique et la qualité de l’enseignement.
+- En bref : L’application fournit une solution complète pour gérer l’ensemble des activités académiques d’un département universitaire, depuis l’inscription des étudiants jusqu’à l’évaluation et la génération des rapports. Elle assure un suivi précis et transparent, facilite la communication entre enseignants et étudiants, et contribue à une meilleure organisation des ressources pédagogiques et administratives.
