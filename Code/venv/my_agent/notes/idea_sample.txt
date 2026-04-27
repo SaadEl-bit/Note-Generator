@@ -1,0 +1,7 @@
+new app concept for students
+what if we build a smart note organizer that uses AI to structure messy lecture notes automatically
+problem: students waste hours formatting notes instead of studying
+solution: drop raw text, get structured markdown/docx instantly
+impact: saves 2-3 hours per week per student, improves focus
+need: python developers, API keys, UI designer
+next: build MVP with groq API, test with 5 students, iterate

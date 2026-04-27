@@ -1,0 +1,5 @@
+{
+    "type": "idea",
+    "prompt": "Convert the following idea note into a structured JSON document.\n\nReturn ONLY valid JSON with these exact fields:\n- title (string): catchy, descriptive title for the idea\n- date (string or null): when the idea was recorded\n- problem_statement (string): what problem this idea solves\n- proposed_solution (string): the core idea/solution\n- potential_impact (string): why this matters, who benefits\n- required_resources (list of strings): what is needed to execute\n- next_steps (list of strings): immediate actions to explore further\n- tags (list of strings): 3-5 relevant keywords\n\nBe creative but structured. Capture the spirit of the idea.\n\nNote:\n{raw_note}",
+    "required_fields": ["title", "problem_statement", "proposed_solution"]
+}
