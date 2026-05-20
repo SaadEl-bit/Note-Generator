@@ -1,0 +1,82 @@
+Chapitre 3 — La structure de l’organisation
+1. Définition et utilité
+La structure correspond à la répartition des tâches, responsabilités, pouvoirs, communications et relations
+hiérarchiques/fonctionnelles entre les organes de l’entreprise.
+Structure = Division du travail + Coordination + Répartition de l’autorité
+Interprétation : dès qu’une entreprise grandit, elle doit préciser qui fait quoi, qui décide et comment les équipes
+se coordonnent.
+Ce que la structure répartit
+Autorité : hiérarchie, pouvoir de décision.
+Responsabilités : division du travail.
+Règles/procédures : coordination et information.
+Communication : verticale, ascendante,
+descendante ou latérale.
+Dimensions structurelles
+Complexité Centralisation Formalisation
+Standardisation Différenciation Intégration
+Note : formalisation = écrit ; standardisation =
+procédures ; centralisation = décisions concentrées au
+sommet.
+2. Types généraux de structure
+Type Caractéristiques Exemple Limite
+Mécaniste Spécialisation forte, règles strictes, centralisation. Usine
+standardisée.
+Rigidité, innovation
+faible.
+Organique Tâches peu standardisées, responsabilités partagées,
+autorité par compétence.
+Start-up, projet
+R&D.
+Coordination parfois
+floue.
+Formelle Visible dans un organigramme officiel. Services et postes. Ne montre pas les
+relations réelles.
+Informelle Réseaux réels, affinités, échanges non écrits. Collègues qui
+s’aident.
+Pouvoir caché, rumeurs.
+3. Structures classiques à comparer
+Structure Principe Avantage Inconvénient
+Simple Tout tourne autour du dirigeant. Rapide, flexible. Dépendance au chef.
+Fonctionnelle Regroupement par fonctions :
+production, marketing, finance.
+Spécialisation, économies
+d’échelle.
+Centralisation, conflits
+entre fonctions.
+Multidivisionnelle Regroupement par produit, marché
+ou zone.
+Autonomie des divisions. Coordination coûteuse,
+rivalités.
+Matricielle Double logique : fonctions +
+projets/produits.
+Flexibilité, partage de
+ressources.
+Double chef, conflits
+d’autorité.
+Réseau Partenariats, relations latérales, faible
+hiérarchie.
+Réactivité, accès à
+compétences externes.
+Dépendance aux
+partenaires.
+4. Coordination, gouvernance et communication
+Mécanismes de coordination
+1. Ajustement mutuel : communication directe.
+2. Supervision directe : un responsable donne les
+instructions.
+3. Standardisation des procédés : règles de travail.
+4. Standardisation des résultats : objectifs de résultat.
+5. Standardisation des qualifications :
+diplôme/formation.
+6. Standardisation des normes : valeurs et culture
+communes.
+Cas pratique
+Un restaurant rapide avec cuisine, caisse et salle, des
+procédures minutées et une hiérarchie claire illustre une
+organisation taylorienne : division horizontale par zones
+et division verticale entre conception/contrôle et
+exécution.
+Conseil d’examen : pour reconnaître une
+structure, cherchez d’abord le critère de
+regroupement : fonction, zone, produit, projet ou
+réseau.

@@ -1,5 +1,6 @@
 import json
 import os
+import time
 from pathlib import Path
 
 # Always resolve paths relative to this file, not the CWD
@@ -10,9 +11,14 @@ from src.renderers.meeting import render_meeting
 from src.renderers.idea import render_idea
 from src.renderers.todo import render_todo
 from src.renderers.qa import render_qa
+from src.renderers.default import render_default
 from src.classifier.heuristic import classify_heuristic
 from src.classifier.api_classifier import classify_api
 from src.validator import validate_response
+from src.utils.chunker import chunk_text
+
+# Max characters per chunk (~3000 chars ≈ ~750 tokens, well within 6000 TPM limit)
+MAX_CHUNK_CHARS = 3000
 
 
 # Map type → renderer function
@@ -21,6 +27,7 @@ RENDERERS = {
     "idea": render_idea,
     "todo": render_todo,
     "qa": render_qa,
+    "default": render_default,
 }
 
 # this function is used to classify the note type
@@ -42,31 +49,61 @@ def classify_note(raw_note: str) -> str:
 
 
 def process_note_file(note_file: Path, output_dir: Path):
-    """Process a single note file end-to-end."""
+    """Process a single note file end-to-end. Auto-chunks if too large."""
     print(f"Processing: {note_file.name}")
 
     # 1. READ
     raw_note = note_file.read_text(encoding="utf-8")
 
     # 2. CLASSIFY
-    note_type = classify_note(raw_note)
-    print(f"  -> Using template: {note_type}")
+    note_type = "default"
+    print(f"  -> FORCED: default (classifier bypassed)")
 
-    # 3. BUILD prompt
+    # 3. BUILD prompt (to check size)
     try:
-        prompt, required_fields = build_prompt(note_type, raw_note)
+        _, required_fields = build_prompt(note_type, "")
     except FileNotFoundError:
-        print(f"  FAILED: Template '{note_type}.json' not found. Using 'meeting' fallback.")
-        prompt, required_fields = build_prompt("meeting", raw_note)
-        note_type = "meeting"
+        note_type = "default"
+        _, required_fields = build_prompt("default", "")
 
-    # 4. CALL API
+    # 4. CHECK if chunking is needed
+    prompt_overhead = len(_)  # template prompt length without note
+    estimated_tokens = (len(raw_note) + prompt_overhead) // 4  # rough char→token estimate
+
+    if len(raw_note) > MAX_CHUNK_CHARS:
+        chunks = chunk_text(raw_note, MAX_CHUNK_CHARS)
+        print(f"  -> Note too large ({len(raw_note)} chars). Splitting into {len(chunks)} chunks.")
+
+        for i, chunk in enumerate(chunks, 1):
+            print(f"  Processing chunk {i}/{len(chunks)}...")
+            _process_chunk(chunk, note_file.stem, note_type, i, len(chunks), output_dir)
+            # Delay between chunks to avoid TPM rate limit
+            if i < len(chunks):
+                print(f"  Waiting 10s before next chunk (TPM rate limit)...")
+                time.sleep(10)
+    else:
+        _process_chunk(raw_note, note_file.stem, note_type, 1, 1, output_dir)
+
+    print()
+
+
+def _process_chunk(chunk_text: str, note_stem: str, note_type: str,
+                   part_num: int, total_parts: int, output_dir: Path):
+    """Process a single chunk of text through the full pipeline."""
+    # BUILD prompt
+    try:
+        prompt, required_fields = build_prompt(note_type, chunk_text)
+    except FileNotFoundError:
+        prompt, required_fields = build_prompt("default", chunk_text)
+        note_type = "default"
+
+    # CALL API
     response_text = call_groq(prompt)
     if not response_text:
-        print(f"  FAILED: API did not return a response.\n")
+        print(f"  FAILED: API did not return a response.")
         return
 
-    # 5. PARSE JSON
+    # PARSE JSON
     try:
         text = response_text
         if text.startswith("```"):
@@ -78,18 +115,25 @@ def process_note_file(note_file: Path, output_dir: Path):
 
     except json.JSONDecodeError as e:
         print(f"  FAILED: JSON parse error — {e}")
-        print(f"  Raw preview: {response_text[:200]}...\n")
+        print(f"  Raw preview: {response_text[:200]}...")
         return
 
-    # 6. VALIDATE
+    # VALIDATE
     data = validate_response(data, required_fields)
 
-    # 7. RENDER
+    # RENDER
     renderer = RENDERERS.get(note_type, render_meeting)
-    output_path = output_dir / f"{note_file.stem}_{note_type}.docx"
+
+    # Add part number to filename if multiple chunks
+    if total_parts > 1:
+        output_name = f"{note_stem}_part{part_num}of{total_parts}_{note_type}.docx"
+    else:
+        output_name = f"{note_stem}_{note_type}.docx"
+
+    output_path = output_dir / output_name
     renderer(data, str(output_path))
 
-    print(f"  Done.\n")
+    print(f"  Done.")
 
 
 def main():
