@@ -1,0 +1,5 @@
+{
+    "type": "question_only",
+    "prompt": "Answer the following question thoroughly. Return ONLY valid JSON:\n- title (string): concise topic title\n- question (string): the exact question asked\n- answer (string): detailed, accurate answer\n- confidence (string): \"high\", \"medium\", or \"low\"\n- sources (list of strings): relevant references if known\n- related_topics (list of strings): 2-3 related subjects\n- tags (list of strings): 3-5 keywords\n\nQuestion:\n{raw_note}",
+    "required_fields": ["title", "question", "answer"]
+}

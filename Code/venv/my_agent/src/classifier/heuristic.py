@@ -39,7 +39,16 @@ def classify_heuristic(raw_note: str) -> tuple[str, float]:
     confidence = min(best_score / max(max_possible * 0.3, 1), 1.0) if max_possible else 0.0
 
     # If no keywords matched at all, return unknown
-    if best_score == 0:
-        return "unknown", 0.0
+    # if best_score == 0:
+    #     return "unknown", 0.0
 
-    return best_type, round(confidence, 2)
+    # return best_type, round(confidence, 2)
+
+    # NEW (temporary):
+    # FORCE DEFAULT FOR TESTING — comment out the lines above and use this:
+    return "default", 1.0
+    
+    # ORIGINAL CODE (restore after test):
+    # if best_score == 0:
+    #     return "unknown", 0.0
+    # return best_type, round(confidence, 2)

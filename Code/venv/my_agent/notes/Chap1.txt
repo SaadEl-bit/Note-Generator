@@ -1,0 +1,80 @@
+Chapitre 1 — La gestion et l’organisation
+1. Gestion : idée centrale
+La gestion est l’action de prévoir, organiser,
+commander/diriger, coordonner et contrôler les
+ressources d’une organisation afin d’atteindre des
+buts définis.
+Les verbes à connaître
+Prévoir : préparer l’avenir par un programme
+d’action, pas improviser.
+Organiser : mettre en place organes, moyens, règles
+et responsabilités.
+Commander / diriger : faire fonctionner le
+personnel avec autorité et responsabilité.
+Coordonner : harmoniser les tâches et éviter les
+contradictions entre services.
+Contrôler : comparer les résultats avec les objectifs
+et corriger les écarts.
+PODC = Planifier + Organiser + Diriger
++ Contrôler
+Interprétation : dans un examen, toute action de
+gestion peut souvent être rangée dans l’une de ces
+quatre fonctions.
+Exemple concret
+Une cafétéria veut vendre 200 repas/jour : elle prévoit
+les achats, organise l’équipe cuisine/caisse, dirige les
+employés pendant le service, puis contrôle les ventes et
+les pertes.
+2. Objectif, mission et performance
+La mission est la raison d’être de l’entreprise : ce
+qu’elle sait faire, pour qui elle le fait et quelle utilité
+elle apporte.
+Un objectif est un résultat voulu, mesurable,
+réaliste, cohérent, accepté, flexible et inscrit dans le
+temps.
+Objectif = Dimension + Échelle + Norme
++ Horizon temporel
+O = D + E + N + H
+Interprétation : un objectif vague devient valable
+quand on précise quoi mesurer, combien atteindre et
+quand.
+Notation : D = attribut visé (rentabilité, CA, qualité)
+; E = unité de mesure ; N = niveau attendu ; H = délai.
+Exemple : « Atteindre une rentabilité de 20 % dans
+deux ans » : D = rentabilité, E = %, N = 20, H = 2 ans.
+Performance organisationnelle =
+Efficacité + Efficience + Pertinence
+Interprétation : il ne suffit pas d’atteindre l’objectif ; il
+faut aussi bien utiliser les moyens et choisir les bons
+objectifs.
+3. Organisation : définition et logique
+Une organisation est un groupe humain structuré
+autour d’une ou plusieurs missions communes, avec
+action collective et buts à atteindre.
+Système structuré : éléments interdépendants,
+division du travail, règles, procédures.
+Unité de décision : elle choisit, coordonne et crée
+de l’utilité.
+Système ouvert : elle dépend de son
+environnement et doit s’y adapter.
+Les 6 parties de Mintzberg
+Partie Rôle rapide
+Sommet stratégique Décisions majeures
+Centre opérationnel Travail productif
+Ligne hiérarchique Lien direction/exécution
+Technostructure Procédures, méthodes, analyses
+Support logistique Services d’appui
+Culture/idéologie Valeurs, traditions, croyances
+4. Gestion vs management
+Gestion Management À retenir
+Techniques de conduite :
+comptabilité, contrôle, ressources,
+décisions, efficacité.
+Conduite de l’action collective :
+motiver, guider, coordonner les
+humains.
+La gestion insiste sur les moyens et
+résultats ; le management insiste aussi
+sur les personnes.
+Conseil d’examen : si la question parle de « ressources, objectifs, contrôle », utilisez PODC et performance.
+Si elle parle de « humains, leadership, motivation », ajoutez la dimension management.

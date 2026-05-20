@@ -1,0 +1,525 @@
+Chapitre 1 — La gestion et l’organisation
+1. Gestion : idée centrale
+La gestion est l’action de prévoir, organiser,
+commander/diriger, coordonner et contrôler les
+ressources d’une organisation afin d’atteindre des
+buts définis.
+Les verbes à connaître
+Prévoir : préparer l’avenir par un programme
+d’action, pas improviser.
+Organiser : mettre en place organes, moyens, règles
+et responsabilités.
+Commander / diriger : faire fonctionner le
+personnel avec autorité et responsabilité.
+Coordonner : harmoniser les tâches et éviter les
+contradictions entre services.
+Contrôler : comparer les résultats avec les objectifs
+et corriger les écarts.
+PODC = Planifier + Organiser + Diriger
++ Contrôler
+Interprétation : dans un examen, toute action de
+gestion peut souvent être rangée dans l’une de ces
+quatre fonctions.
+Exemple concret
+Une cafétéria veut vendre 200 repas/jour : elle prévoit
+les achats, organise l’équipe cuisine/caisse, dirige les
+employés pendant le service, puis contrôle les ventes et
+les pertes.
+2. Objectif, mission et performance
+La mission est la raison d’être de l’entreprise : ce
+qu’elle sait faire, pour qui elle le fait et quelle utilité
+elle apporte.
+Un objectif est un résultat voulu, mesurable,
+réaliste, cohérent, accepté, flexible et inscrit dans le
+temps.
+Objectif = Dimension + Échelle + Norme
++ Horizon temporel
+O = D + E + N + H
+Interprétation : un objectif vague devient valable
+quand on précise quoi mesurer, combien atteindre et
+quand.
+Notation : D = attribut visé (rentabilité, CA, qualité)
+; E = unité de mesure ; N = niveau attendu ; H = délai.
+Exemple : « Atteindre une rentabilité de 20 % dans
+deux ans » : D = rentabilité, E = %, N = 20, H = 2 ans.
+Performance organisationnelle =
+Efficacité + Efficience + Pertinence
+Interprétation : il ne suffit pas d’atteindre l’objectif ; il
+faut aussi bien utiliser les moyens et choisir les bons
+objectifs.
+3. Organisation : définition et logique
+Une organisation est un groupe humain structuré
+autour d’une ou plusieurs missions communes, avec
+action collective et buts à atteindre.
+Système structuré : éléments interdépendants,
+division du travail, règles, procédures.
+Unité de décision : elle choisit, coordonne et crée
+de l’utilité.
+Système ouvert : elle dépend de son
+environnement et doit s’y adapter.
+Les 6 parties de Mintzberg
+Partie Rôle rapide
+Sommet stratégique Décisions majeures
+Centre opérationnel Travail productif
+Ligne hiérarchique Lien direction/exécution
+Technostructure Procédures, méthodes, analyses
+Support logistique Services d’appui
+Culture/idéologie Valeurs, traditions, croyances
+4. Gestion vs management
+Gestion Management À retenir
+Techniques de conduite :
+comptabilité, contrôle, ressources,
+décisions, efficacité.
+Conduite de l’action collective :
+motiver, guider, coordonner les
+humains.
+La gestion insiste sur les moyens et
+résultats ; le management insiste aussi
+sur les personnes.
+Conseil d’examen : si la question parle de « ressources, objectifs, contrôle », utilisez PODC et performance.
+Si elle parle de « humains, leadership, motivation », ajoutez la dimension management.
+Page 1/6 — Chapitre 1
+Chapitre 2 — L’entrepreneuriat et l’entreprise
+1. Entrepreneuriat et entrepreneur
+L’entrepreneuriat consiste à découvrir, construire
+et exploiter une opportunité de création de biens ou
+services, souvent en transformant un problème en
+occasion d’affaires.
+Entrepreneur : personne qui dirige un projet ou une
+entreprise, combine les facteurs de production et
+assume les risques pour créer de la valeur.
+Profil Priorité Logique
+PIC Pérennité,
+Indépendance,
+Croissance
+Grandir sans perdre le
+contrôle.
+CAP Croissance,
+Autonomie, Pérennité
+Chercher vite le
+développement.
+Qualités entrepreneuriales
+Désir d’accomplissement, autonomie, confiance en soi,
+énergie, persévérance, tolérance au stress, goût du
+risque, innovation, vision de projet, capacité à agir face à
+la concurrence.
+Facteurs de production = Capital +
+Travail + Matières/Nature +
+Technologie/Savoir
+Interprétation : une idée ne devient entreprise que si
+elle combine des moyens financiers, humains, matériels
+et techniques.
+2. Trouver et valider une idée
+1. Choisir un axe : savoir-faire, personnalité,
+opportunité, problème observé.
+2. Produire des idées : brainstorming, défectuologie,
+espace de consommation, différenciation.
+3. Sélectionner : compétences, moyens
+financiers/humains/techniques, droit, temps.
+4. Valider : cohérence homme/projet + réalisme
+économique.
+Validation = Cohérence du porteur +
+Réalisme du marché + Moyens
+disponibles
+Interprétation : une idée peut être brillante mais non
+réalisable si le créateur n’a ni compétences, ni
+ressources, ni marché clair.
+Exemple concret
+Une étudiante remarque que les étudiants veulent des
+repas rapides près de la fac. Elle teste une offre de lunch
+box, calcule le coût, interroge les clients, puis choisit la
+SARL si elle s’associe.
+3. L’entreprise : définition, finalités et rationalité
+L’entreprise est une organisation ayant vision, mission, valeurs, stratégie et objectifs ; elle combine des
+facteurs de production pour offrir des biens/services au marché dans un but généralement lucratif.
+Finalités principales
+Rechercher le profit et survivre.
+Satisfaire les clients et parties prenantes.
+Améliorer performance, parts de marché et
+conditions de travail.
+Se développer, s’internationaliser, préserver son
+indépendance.
+Rationalité de l’entrepreneur
+L’homo œconomicus compare les alternatives, collecte
+l’information, classe les choix et retient l’option qui sert
+le mieux ses préférences. En pratique, l’information est
+souvent incomplète : d’où l’importance du diagnostic.
+Résultat simplifié = Chiffre d’affaires − Coûts
+Interprétation : vendre beaucoup ne suffit pas ; il faut maîtriser les coûts pour obtenir un résultat positif.
+4. Classer les entreprises
+Critère Catégories Exemple d’utilisation en examen
+Taille Micro, petite, moyenne, ETI, grande
+entreprise
+Comparer PME et grande entreprise : proximité contre
+économies d’échelle.
+Secteur Primaire, secondaire, tertiaire Mine/agriculture ; industrie ; services/banque/transport.
+Juridique Entreprise individuelle, SNC, SARL, SA,
+association, GIE
+Analyser responsabilité, capital, nombre d’associés,
+gestion.
+Conseil d’examen : pour choisir une forme juridique, citez toujours : nombre d’associés, capital disponible,
+responsabilité, activité, besoin de financement et niveau de risque.
+Page 2/6 — Chapitre 2
+Chapitre 3 — La structure de l’organisation
+1. Définition et utilité
+La structure correspond à la répartition des tâches, responsabilités, pouvoirs, communications et relations
+hiérarchiques/fonctionnelles entre les organes de l’entreprise.
+Structure = Division du travail + Coordination + Répartition de l’autorité
+Interprétation : dès qu’une entreprise grandit, elle doit préciser qui fait quoi, qui décide et comment les équipes
+se coordonnent.
+Ce que la structure répartit
+Autorité : hiérarchie, pouvoir de décision.
+Responsabilités : division du travail.
+Règles/procédures : coordination et information.
+Communication : verticale, ascendante,
+descendante ou latérale.
+Dimensions structurelles
+Complexité Centralisation Formalisation
+Standardisation Différenciation Intégration
+Note : formalisation = écrit ; standardisation =
+procédures ; centralisation = décisions concentrées au
+sommet.
+2. Types généraux de structure
+Type Caractéristiques Exemple Limite
+Mécaniste Spécialisation forte, règles strictes, centralisation. Usine
+standardisée.
+Rigidité, innovation
+faible.
+Organique Tâches peu standardisées, responsabilités partagées,
+autorité par compétence.
+Start-up, projet
+R&D.
+Coordination parfois
+floue.
+Formelle Visible dans un organigramme officiel. Services et postes. Ne montre pas les
+relations réelles.
+Informelle Réseaux réels, affinités, échanges non écrits. Collègues qui
+s’aident.
+Pouvoir caché, rumeurs.
+3. Structures classiques à comparer
+Structure Principe Avantage Inconvénient
+Simple Tout tourne autour du dirigeant. Rapide, flexible. Dépendance au chef.
+Fonctionnelle Regroupement par fonctions :
+production, marketing, finance.
+Spécialisation, économies
+d’échelle.
+Centralisation, conflits
+entre fonctions.
+Multidivisionnelle Regroupement par produit, marché
+ou zone.
+Autonomie des divisions. Coordination coûteuse,
+rivalités.
+Matricielle Double logique : fonctions +
+projets/produits.
+Flexibilité, partage de
+ressources.
+Double chef, conflits
+d’autorité.
+Réseau Partenariats, relations latérales, faible
+hiérarchie.
+Réactivité, accès à
+compétences externes.
+Dépendance aux
+partenaires.
+4. Coordination, gouvernance et communication
+Mécanismes de coordination
+1. Ajustement mutuel : communication directe.
+2. Supervision directe : un responsable donne les
+instructions.
+3. Standardisation des procédés : règles de travail.
+4. Standardisation des résultats : objectifs de résultat.
+5. Standardisation des qualifications :
+diplôme/formation.
+6. Standardisation des normes : valeurs et culture
+communes.
+Cas pratique
+Un restaurant rapide avec cuisine, caisse et salle, des
+procédures minutées et une hiérarchie claire illustre une
+organisation taylorienne : division horizontale par zones
+et division verticale entre conception/contrôle et
+exécution.
+Conseil d’examen : pour reconnaître une
+structure, cherchez d’abord le critère de
+regroupement : fonction, zone, produit, projet ou
+réseau.
+Page 3/6 — Chapitre 3
+Chapitre 4 — L’environnement de l’organisation
+1. Pourquoi analyser l’environnement ?
+L’environnement regroupe les éléments et acteurs extérieurs susceptibles d’influencer l’activité de l’entreprise
+; ils peuvent devenir contraintes, risques, menaces ou opportunités.
+Étudier l’environnement sert à comprendre la structure, la stratégie, les décisions et les adaptations nécessaires.
+L’organisation ne subit pas seulement l’environnement : elle agit aussi sur lui.
+Diagnostic environnemental = Opportunités à saisir + Menaces à éviter +
+Contraintes à intégrer
+Interprétation : une bonne réponse d’examen transforme chaque élément du cas en effet positif ou négatif sur
+l’entreprise.
+2. Théorie de la contingence
+La théorie de la contingence explique que la
+structure et le fonctionnement d’une organisation
+dépendent des variables de contexte : taille, âge,
+technologie, marché, pouvoir, culture, droit,
+économie, démographie.
+Idée simple : il n’existe pas une seule meilleure
+structure ; la bonne structure dépend de la situation.
+Structure adaptée ⇔ Cohérence entre
+contexte, stratégie, technologie et
+taille
+Interprétation : une start-up innovante n’a pas la
+même structure qu’une grande usine stable.
+3. Micro et macro-environnement
+Niveau Acteurs / facteurs Question type
+Micro Clients, fournisseurs,
+concurrents, banques,
+État proche, actionnaires,
+syndicats, ONG.
+Qui influence
+directement
+l’activité ?
+Macro Politique, économie,
+social, technologie,
+écologie, légal.
+Quels grands
+facteurs
+changent le
+marché ?
+4. Outils : SWOT et PESTEL
+SWOT = Forces + Faiblesses +
+Opportunités + Menaces
+Interprétation : Forces/Faiblesses = diagnostic interne
+; Opportunités/Menaces = diagnostic externe.
+Notation : S = Strengths/Forces ; W =
+Weaknesses/Faiblesses ; O =
+Opportunities/Opportunités ; T = Threats/Menaces.
+PESTEL = Politique + Économique +
+Socioculturel + Technologique +
+Écologique + Légal
+Interprétation : PESTEL détaille le macroenvironnement et aide à classer les informations d’un
+cas.
+P E S T E L
+Fiscalité,
+stabilité,
+régulation.
+Croissance,
+inflation, taux,
+chômage.
+Styles de vie,
+valeurs,
+démographie.
+R&D, innovation,
+obsolescence.
+Ressources,
+déchets, énergie.
+Droit du
+travail, normes,
+sécurité.
+5. Caractéristiques de l’environnement
+Caractéristique Définition Indice dans un cas
+Turbulence Changements rapides et importants. Crise, innovation rapide, instabilité
+politique.
+Complexité Nombre élevé de facteurs et relations difficiles à
+contrôler.
+Beaucoup d’acteurs, savoir-faire spécifique,
+transactions variées.
+Hostilité Pression forte : concurrence, rareté des
+ressources, climat défavorable.
+Guerre des prix, taxes, fournisseurs rares,
+crise sociale.
+Conseil d’examen : dans un cas comme l’entreprise de montres « Time », classez chaque indice :
+concurrence étrangère = menace/hostilité ; taxes = légal/politique ; mouvement écologique = écologique ;
+alliance suisse = opportunité stratégique.
+Page 4/6 — Chapitre 4
+Chapitre 5 — La stratégie de l’organisation
+1. Rôle de la stratégie
+La stratégie fixe les grandes orientations de moyen et long terme permettant à l’organisation d’assurer sa
+survie, sa pérennité, son développement et la création de valeur.
+Elle donne du recul : au lieu de seulement réagir aux événements, l’entreprise choisit où aller, avec quels moyens,
+et comment construire un avantage concurrentiel défendable.
+Stratégie = Objectifs de long terme + Choix d’activités + Moyens + Avantage
+concurrentiel
+Interprétation : une stratégie n’est pas une action isolée ; c’est un ensemble cohérent de choix durables.
+2. Axes de développement
+Axe Signification Exemple
+Croissance Développer
+l’activité.
+Nouveau marché,
+production plus
+grande.
+Stabilisation Maintenir le
+niveau actuel.
+Consolider la
+qualité et les
+clients.
+Abandon /
+recentrage
+Quitter certaines
+activités.
+Arrêter un produit
+non rentable.
+3. Fondements de la stratégie
+Élément Question
+Vision Que voulons-nous devenir ?
+Mission Pourquoi existons-nous ?
+Valeurs En quoi croyons-nous ?
+Objectifs Quels résultats, quand, avec quels moyens ?
+4. SWOT stratégique : lire la matrice
+Opportunités externes Menaces externes
+Forces
+internes
+Attaque : utiliser les points forts pour saisir les
+opportunités.
+Ajustement / défense active : renforcer
+les points forts pour résister.
+Faiblesses
+internes
+Défense / correction : réduire les faiblesses
+pour profiter des opportunités.
+Survie : contourner les difficultés,
+recentrer ou coopérer.
+Choix stratégique = Cohérence (Forces/Faiblesses internes) avec
+(Opportunités/Menaces externes)
+Interprétation : la stratégie la plus logique est celle qui relie ce que l’entreprise sait faire à ce que
+l’environnement permet ou impose.
+5. Types de stratégie
+Stratégie Principe Condition de réussite Exemple rapide
+Domination par
+les coûts
+Réduire coûts fixes/variables
+pour proposer des prix plus
+bas.
+Économies d’échelle, négociation
+fournisseurs, processus efficaces.
+Grande distribution.
+Innovation /
+technologie
+Se distinguer par nouveautés et
+progrès technique.
+R&D, compétences, veille
+technologique.
+Montre connectée.
+Différenciation Créer une offre perçue comme
+unique.
+Qualité, image, design, service,
+marque.
+Montres artisanales de
+luxe.
+Coopération Collaborer au lieu de seulement
+concurrencer.
+Confiance, complémentarité,
+contrat clair.
+Franchise, licence,
+sous-traitance,
+alliance.
+6. Stratégie vs tactique
+La tactique désigne les moyens habiles et les
+démarches concrètes utilisés pour mettre en œuvre
+la stratégie et atteindre un objectif.
+Conseil d’examen : stratégie = direction globale et
+long terme ; tactique = actions concrètes, allocation
+des moyens et pilotage au quotidien.
+Page 5/6 — Chapitre 5
+Schéma récapitulatif structuré — 5 chapitres
+1. Chaîne logique à retenir
+1. Organisation
+Mission commune,
+groupe humain,
+système ouvert,
+parties de
+Mintzberg.
+→
+2. Gestion
+Planifier, organiser,
+diriger, contrôler
+les ressources pour
+atteindre les
+objectifs.
+→
+3. Entreprise
+Combine facteurs
+de production,
+cherche profit,
+performance et
+satisfaction des
+parties prenantes.
+→
+4. Entrepreneur
+Repère une opportunité,
+prend risque, mobilise
+capital/travail/technologie.
+5. Structure
+Répartir tâches, pouvoirs,
+responsabilités, règles et
+communication.
+→
+6. Environnement
+SWOT + PESTEL :
+opportunités, menaces,
+turbulence, complexité,
+hostilité.
+→
+7. Stratégie
+Vision, mission, valeurs,
+objectifs ; coûts, innovation,
+différenciation, coopération.
+8. Mise en œuvre
+Tactiques, ressources,
+décisions, coordination,
+communication.
+→
+9. Contrôle
+Comparer résultats/objectifs,
+corriger écarts, apprendre.
+→
+10. Performance
+Efficacité + efficience +
+pertinence.
+2. Formules et codes de réponse à mémoriser
+O = D + E + N + H
+Objectif complet : dimension, échelle, norme, horizon.
+PODC = Planifier → Organiser → Diriger
+→ Contrôler
+Code de classement des fonctions de gestion.
+PESTEL = P + E + S + T + E + L
+Code de classement du macro-environnement.
+SWOT : Interne = Forces/Faiblesses ;
+Externe = Opportunités/Menaces
+Toujours séparer ce qui appartient à l’entreprise de ce
+qui vient du marché.
+Structure = Division + Coordination +
+Autorité
+Code simple pour expliquer pourquoi une structure
+existe.
+Stratégie ≠ Tactique
+Stratégie = orientation ; Tactique =
+actions/moyens
+Très utile pour les questions de définition.
+3. Tableau final des questions d’examen probables
+Question Plan de réponse rapide
+Définir la gestion. Définition + PODC + ressources/objectifs + performance.
+Comparer gestion et
+management.
+Gestion = techniques et efficacité ; management = conduite humaine et
+collective.
+Analyser une entreprise. Finalités + facteurs de production + taille/secteur/juridique + fonctions.
+Identifier une structure. Regroupement par fonction/produit/zone/projet + avantages/limites.
+Analyser l’environnement. Micro/macro + PESTEL + SWOT + turbulence/complexité/hostilité.
+Proposer une stratégie. Vision/mission/objectifs + SWOT + type de stratégie + tactiques.
+4. Checklist avant l’examen
+Définitions
+□ Gestion
+□ Organisation
+□ Entreprise
+□ Structure
+□ Environnement
+Outils
+□ PODC
+□ O=D+E+N+H
+□ SWOT
+□ PESTEL
+□ Matrice SWOT
+Cas pratiques
+□ Classer une entreprise
+□ Choisir une forme juridique
+□ Identifier une structure
+□ Diagnostiquer environnement
+□ Proposer stratégie
+Page 6/6 — Synthèse générale

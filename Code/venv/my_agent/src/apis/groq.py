@@ -30,7 +30,7 @@ def call_groq(prompt: str, retries: int = 3) -> str:
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.2,
-                max_tokens=1024
+                max_tokens=1500
             )
             return completion.choices[0].message.content.strip()
 

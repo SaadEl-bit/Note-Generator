@@ -6,7 +6,10 @@ import json
 from src.apis.groq import call_groq
 
 
-# Give the identification task to groq , with default type:
+# OLD:
+# "type" must be one of: "meeting", "idea", "todo", "qa"
+
+# NEW — replace the entire CLASSIFIER_PROMPT string:
 CLASSIFIER_PROMPT = """You are a note classifier. Read the note below and return ONLY a JSON object.
 
 Rules:
@@ -31,8 +34,21 @@ def classify_api(raw_note: str) -> tuple[str, float]:
     prompt = CLASSIFIER_PROMPT.format(raw_note=raw_note)
     response = call_groq(prompt)
 
-    if not response:
-        return "meeting", 0.0  # fallback default
+    # if not response:
+    #     return "meeting", 0.0  # fallback default
+
+    # NEW (temporary):
+    # FORCE DEFAULT FOR TESTING:
+    return "default", 1.0
+    
+    # ORIGINAL CODE (restore after test):
+    # try:
+    #     data = json.loads(text.strip())
+    #     note_type = data.get("type", "meeting")
+    #     confidence = float(data.get("confidence", 0.5))
+    #     return note_type, confidence
+    # except (json.JSONDecodeError, ValueError):
+    #     return "meeting", 0.5
 
     # Clean markdown fences if present
     text = response
@@ -41,10 +57,10 @@ def classify_api(raw_note: str) -> tuple[str, float]:
         if text.startswith("json"):
             text = text[4:]
 
-    try:
-        data = json.loads(text.strip())
-        note_type = data.get("type", "meeting")
-        confidence = float(data.get("confidence", 0.5))
-        return note_type, confidence
-    except (json.JSONDecodeError, ValueError):
-        return "meeting", 0.5  # fallback
+    # try:
+    #     data = json.loads(text.strip())
+    #     note_type = data.get("type", "meeting")
+    #     confidence = float(data.get("confidence", 0.5))
+    #     return note_type, confidence
+    # except (json.JSONDecodeError, ValueError):
+    #     return "meeting", 0.5  # fallback

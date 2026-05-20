@@ -24,7 +24,8 @@ def validate_response(data: dict, required_fields: list) -> dict:
     list_fields = ["participants", "action_items", "tags", "tasks",
                    "required_resources", "next_steps", "sources",
                    "follow_up_questions", "categories", "agenda_items",
-                   "decisions_made"]
+                   "decisions_made", "questions_answered", "key_terms", "insights",
+                   "suggested_actions", "related_topics"]
     for field in list_fields:
         if field in sanitized and not isinstance(sanitized[field], list):
             sanitized[field] = [sanitized[field]] if sanitized[field] else []

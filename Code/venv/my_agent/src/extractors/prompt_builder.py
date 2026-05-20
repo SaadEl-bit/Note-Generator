@@ -21,7 +21,7 @@ def build_prompt(template_name: str, raw_note: str) -> tuple[str, list]:
     Returns: (complete_prompt_string, list_of_required_fields)
     """
     template = load_template(template_name)
-    prompt = template["prompt"].format(raw_note=raw_note)
+    prompt = template["prompt"].replace("{raw_note}", raw_note)
     required_fields = template.get("required_fields", [])
     return prompt, required_fields
 
